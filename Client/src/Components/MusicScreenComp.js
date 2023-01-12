@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, FlatList, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState, useRef, useCallback, } from 'react'
 import { useRoute } from '@react-navigation/native'
 import Video from 'react-native-video'
@@ -7,14 +7,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
 const MusicScreenComp = () => {
-    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+    const route = useRoute();
+    const pressedVideoIndex = route.params.VideoIndex;
+    const [currentVideoIndex, setCurrentVideoIndex] = useState(pressedVideoIndex);
     const [responses, setResponse] = useState('')
     const [currentVideo, setCurrentVideo] = useState('');
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [paused, setPaused] = useState(false);
     const [isloading, setIsloading] = useState(true);
-    const route = useRoute();
     const videoRef = useRef(null);
     const onBuffer = (e) => {
         console.log('buffering', e);
@@ -48,14 +49,12 @@ const MusicScreenComp = () => {
     }
     const handleBackFunction = async () => {
         try {
-            // setCurrentVideoIndex(currentVideoIndex - 1)
             setCurrentVideoIndex((currentVideoIndex - 1) % responses.length);
             setCurrentVideo(responses[currentVideoIndex]);
 
         } catch (error) {
-            console.log('handleBackFunctionError',error)
+            console.log('handleBackFunctionError', error)
         }
-        // setCurrentVideo(responses[currentVideoIndex]);
     }
 
     const togglePlay = () => {
@@ -66,15 +65,13 @@ const MusicScreenComp = () => {
     }
     useEffect(() => {
         apiCall();
-        // handleForwardFunction();
-        // console.log('currentVideoIndex',currentVideoIndex)
     }, [])
     return (
         <View style={styles.root}>
             <View style={styles.videoContainer}>
                 {isloading
                     ?
-                    <Text style={{ color: 'white' }}> loading video </Text>
+                    <ActivityIndicator size="large" color="#0000ff" />
                     :
                     <Video
                         source={{ uri: currentVideo.Preview_url }}
@@ -95,26 +92,6 @@ const MusicScreenComp = () => {
                     />
 
                 }
-                {/* 
-            <Video
-                    source={{ uri: currentVideo.Preview_url }}
-                    ref={videoRef}                     // Store reference
-                    onBuffer={onBuffer}                // Callback when remote video is buffering
-                    onError={onError}               // Callback when video cannot be loaded
-                    style={styles.backgroundVideo}
-                    mixWithOthers={'duck'}
-                    // repeat={true}
-                    resizeMode={'contain'}
-                    paused={paused}
-                    onProgress={(data) => {
-                        setCurrentTime(data.currentTime);
-                    }}
-                    onLoad={(data) => {
-                        setDuration(data.duration);
-                    }}
-                />
-         */}
-
             </View>
             <View style={styles.controlContainer}>
                 <Slider
@@ -173,10 +150,8 @@ const styles = StyleSheet.create({
         right: 0,
     },
     controlContainer: {
-        // flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-end',
-        // flexDirection:'column'
     },
     progressContainer: {
         width: 350,

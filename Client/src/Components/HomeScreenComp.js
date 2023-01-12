@@ -1,9 +1,7 @@
 import { StyleSheet, Text, View, FlatList, Image, Pressable } from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
-import Video from 'react-native-video'
 import { useNavigation } from '@react-navigation/native'
 
-// import video from '../Client/ChaandBalliyan.mp4'
 const PlaylistComp = ({ playlistName, image, onPlaylistCompPressed }) => {
     return (
         <Pressable style={styles.PlaylistMainContainer} onPress={onPlaylistCompPressed} >
@@ -21,14 +19,6 @@ const HomeScreenComp = () => {
     const [response, setResponse] = useState('')
     const navigation = useNavigation();
 
-    const videoRef = useRef(null);
-    const onBuffer = (e) => {
-        console.log('buffering', e);
-
-    }
-    const onError = (e) => {
-        console.log('error', e)
-    }
     const apicall = async () => {
         try {
             const api = await fetch('http://192.168.0.106:4000/multiflex/api/movies');
@@ -39,37 +29,26 @@ const HomeScreenComp = () => {
             console.log(error);
         }
     }
+
+    const PressedVideoIndex = (index) => {
+        console.log("Index of pressed object : ", index)
+    }
+
     useEffect(() => {
         apicall();
     }, [])
     return (
         <View style={{ flex: 1, backgroundColor: 'black' }}>
-            {/* <Video source={require('./ChaandBalliyan.mp4')}    // Can be a URL or a local file.
-        // ref={videoRef}                     // Store reference
-        // onBuffer={onBuffer}                // Callback when remote video is buffering
-        // onError={onError}               // Callback when video cannot be loaded
-        // style={styles.backgroundVideo}
-        // minLoadRetryCount={5}
-        // mixWithOthers={'inherit'}
-        // repeat={true}
-        // resizeMode={'contain'}
-      // paused={true}
-      // onAudioBecomingNoisy={()=>{
-      // Payload:none
-      // }}
-      // />
-      */}
-
-
             <FlatList
                 data={response}
-                renderItem={({ item }) => {
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item, index }) => {
                     return (
                         <PlaylistComp playlistName={item.name} image={item.image}
                             onPlaylistCompPressed={() => {
-                                console.warn(item.name);
-                                navigation.navigate('Music', { MusicName: item.name })
-                                // <Video poster={item.image} source={require('./ChaandBalliyan.mp4')} style={styles.backgroundVideo} />
+                                PressedVideoIndex(index)
+                                console.warn(index);
+                                navigation.navigate('Music', { MusicName: item.name,VideoIndex:index }) 
                             }}
                         />
                     )
