@@ -1,20 +1,23 @@
 require('./config/db')
 const express = require('express')
 const app = express()
-const port = 4000
+const port = 3000
 const cors = require('cors');
-const movieRoute = require('./routes/moviesRoute')
 const bodyParser = require('body-parser');
- require('dotenv').config();
+const movieRoute = require('./routes/moviesRoute')
+const topPlaylistRoute = require('./routes/topPlaylistRoute')
+require('dotenv').config();
 // const fileUpload = require('express-fileupload')
 // app.use(fileUpload({
-    // useTempFiles: true
+// useTempFiles: true
 // }))
 
-app.use('/multiflex', movieRoute);
-app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use('/multiflex', movieRoute);
+app.use('/api/Top_playlist', topPlaylistRoute);
+
+// app.use(express.json());
 app.use(cors());
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

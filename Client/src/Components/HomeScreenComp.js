@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, FlatList, Image, Pressable } from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import GreetingComp from './GreetingComp'
 
 const PlaylistComp = ({ playlistName, image, onPlaylistCompPressed }) => {
     return (
@@ -21,7 +22,7 @@ const HomeScreenComp = () => {
 
     const apicall = async () => {
         try {
-            const api = await fetch('http://192.168.0.106:4000/multiflex/api/movies');
+            const api = await fetch('http://192.168.0.106:3000/multiflex/api/movies');
             const result = await api.json();
             console.log(result);
             setResponse(result);
@@ -39,7 +40,8 @@ const HomeScreenComp = () => {
     }, [])
     return (
         <View style={{ flex: 1, backgroundColor: 'black' }}>
-            <FlatList
+<GreetingComp />
+        <FlatList
                 data={response}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item, index }) => {

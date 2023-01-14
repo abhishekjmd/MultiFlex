@@ -5,6 +5,7 @@ import HomeScreenComp from '../Components/HomeScreenComp'
 const HomeScreen = () => {
     return (
         <View style={{ flex: 1 }}>
+            
             <HomeScreenComp />
         </View>
     )
