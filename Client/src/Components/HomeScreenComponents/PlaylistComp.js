@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import React from 'react'
-const PlaylistComp = ({ onTopPlaylistCompPressed, Images, TopplaylistName }) => {
+const PlaylistComp = ({ PlaylistCompPressed, Images, TopplaylistName }) => {
     return (
-        <Pressable style={styles.root} onPress={onTopPlaylistCompPressed} >
+        <Pressable style={styles.root} onPress={PlaylistCompPressed} >
             <View style={styles.imageContainer}>
                 <Image source={{ uri: Images }} style={styles.image} />
             </View>

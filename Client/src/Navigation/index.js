@@ -1,10 +1,12 @@
 import React from 'react'
 import { StyleSheet, Image, View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import HomeScreen from '../Screens/HomeScreen'
 import MusicScreen from '../Screens/MusicScreen'
 import Fontisto from 'react-native-vector-icons/Fontisto'
+import MovieListScreen from '../Screens/HomeScreen/MovieListScreen'
+import HomeScreen from '../Screens/HomeScreen/HomeScreen'
+import VideoPlayerScreen from '../Screens/VideoPlayerScreen/VideoPlayerScreen'
+
 const stack = createNativeStackNavigator()
 const Navigation = () => {
     return (
@@ -35,6 +37,8 @@ const Navigation = () => {
                 }}
             />
             <stack.Screen name='Music' component={MusicScreen} />
+            <stack.Screen name='MovieList' component={MovieListScreen} />
+            <stack.Screen name='VideoPlayer' component={VideoPlayerScreen} />
         </stack.Navigator>
 
     )

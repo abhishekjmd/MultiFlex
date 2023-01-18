@@ -1,44 +1,45 @@
 import { StyleSheet, Text, View, FlatList, Pressable, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import GreetingComp from '../GreetingComp'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { PlaylistAsync } from '../../redux/reducers/playlistReducers'
 import PlaylistComp from './PlaylistComp'
+import { useNavigation } from '@react-navigation/native'
+import { PlaylistAsync } from '../../redux/reducers/playlistReducers'
 
 
 const TopPlaylist = () => {
+    // const playlistData = useSelector((state) => state.HomeReducer.PlaylistData)
     const [response, setResponse] = useState('')
+    const navigation = useNavigation();
     const dispatch = useDispatch();
+    const playlistDataFunction = useCallback(() => {
+        dispatch(PlaylistAsync())
+    }, [dispatch]);
 
-    const playlistData = useSelector((state) => state.HomeReducer.PlaylistData)
-    const dispatchFunction = async () => {
-        try {
-            await dispatch(PlaylistAsync())
-            const result = await playlistData.slice(0, 2)
-            setResponse(playlistData.slice(0, 4))
-        } catch (error) {
-            console.log(error)
-        }
-    }
     useEffect(() => {
-        dispatchFunction()
-    }, [])
+        playlistDataFunction()
+    }, [playlistDataFunction])
+    const playlistData = useSelector((state) => state.HomeReducer.PlaylistData.slice(0, 4))
+
     return (
         <View style={{ alignItems: 'center' }}>
-
             <View style={styles.root}>
                 <Text style={styles.text}> Mood Like Bollywood </Text>
                 <FlatList
                     horizontal
-                    data={response}
-                    renderItem={({ item }) => {
+                    data={playlistData}
+                    // keyExtractor={(item, index) => (index + 4).toString()}
+                    renderItem={({ item,index }) => {
                         return (
                             <PlaylistComp
                                 Images={item.coverImage}
-                                TopplaylistName={item.name} />
+                                TopplaylistName={item.name}
+                                PlaylistCompPressed={() => { navigation.navigate('MovieList', { movieList: item.movies, playlistIndex: index }) }}
+
+                            />
                         )
                     }}
                     showsHorizontalScrollIndicator={false}
+                // numColumns={2}
                 />
             </View>
         </View>

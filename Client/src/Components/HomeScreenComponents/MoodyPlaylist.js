@@ -1,39 +1,36 @@
 import { StyleSheet, Text, View, FlatList, Pressable, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import GreetingComp from '../GreetingComp'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { PlaylistAsync } from '../../redux/reducers/playlistReducers'
 import PlaylistComp from './PlaylistComp'
+import { PlaylistAsync } from '../../redux/reducers/playlistReducers'
+import { useNavigation } from '@react-navigation/native'
 
 
 const MoodyPlaylist = () => {
-    const [response, setResponse] = useState('')
-    const dispatch = useDispatch();
-
-    const playlistData = useSelector((state) => state.HomeReducer.PlaylistData)
-    const dispatchFunction = async () => {
-        try {
-            await dispatch(PlaylistAsync())
-            setResponse(playlistData.slice(8, 12))
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    const navigation = useNavigation();
+    dispatch = useDispatch();
+    const playlistDataFunction = useCallback(() => {
+        dispatch(PlaylistAsync())
+    }, [dispatch])
     useEffect(() => {
-        dispatchFunction()
-    }, [])
+        playlistDataFunction();
+    }, [playlistDataFunction])
+    const playlistData = useSelector((state) => state.HomeReducer.PlaylistData.slice(8, 12))
     return (
         <View style={{ alignItems: 'center' }}>
             <View style={styles.root}>
                 <Text style={styles.text}> Being Happy </Text>
                 <FlatList
                     horizontal
-                    data={response}
-                    renderItem={({ item }) => {
+                    data={playlistData}
+                    renderItem={({ item, index }) => {
                         return (
                             <PlaylistComp
                                 Images={item.coverImage}
-                                TopplaylistName={item.name} />
+                                TopplaylistName={item.name}
+                                PlaylistCompPressed={() => { navigation.navigate('MovieList', { movieList: item.movies, playlistIndex: index + 8 }) }}
+                            />
+
                         )
                     }}
                 />

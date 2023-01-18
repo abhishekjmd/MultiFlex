@@ -1,39 +1,39 @@
 import { StyleSheet, Text, View, FlatList, Pressable, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { PlaylistAsync } from '../../redux/reducers/playlistReducers'
 import PlaylistComp from './PlaylistComp'
+import { useNavigation } from '@react-navigation/native'
+import { PlaylistAsync } from '../../redux/reducers/playlistReducers'
 
 
 const RecommendedPlaylist = () => {
-  const [response, setResponse] = useState('')
   const dispatch = useDispatch();
-
-  const playlistData = useSelector((state) => state.HomeReducer.PlaylistData)
-  const dispatchFunction = async () => {
-    try {
-      await dispatch(PlaylistAsync())
-      setResponse(playlistData.slice(4, 8))
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const navigation = useNavigation();
+  const playlistDataFunction =useCallback(()=>{
+    dispatch(PlaylistAsync())
+  },[dispatch]) 
+      
   useEffect(() => {
-    dispatchFunction()
-  }, [])
+    playlistDataFunction();
+  }, [playlistDataFunction])
+  const playlistData = useSelector((state) => state.HomeReducer.PlaylistData.slice(4, 8))
   return (
     <View style={styles.main}>
       <View style={styles.root}>
         <Text style={styles.text}> Recommeneded for Today </Text>
         <FlatList
           horizontal
-          data={response}
-          renderItem={({ item }) => {
+          data={playlistData}
+          // keyExtractor={(item, index) => (index + 4).toString()}
+          renderItem={({ item, index }) => {
             return (
               <PlaylistComp
                 Images={item.coverImage}
-                TopplaylistName={item.name} />
+                TopplaylistName={item.name}
+                PlaylistCompPressed={() => { navigation.navigate('MovieList', { movieList: item.movies, playlistIndex: index + 4 }) }}
+              />
+
             )
           }}
           showsHorizontalScrollIndicator={false}
@@ -46,8 +46,8 @@ const RecommendedPlaylist = () => {
 export default RecommendedPlaylist
 
 const styles = StyleSheet.create({
-  main:{
-    alignItems:'center'
+  main: {
+    alignItems: 'center'
   },
   root: {
     justifyContent: 'center',

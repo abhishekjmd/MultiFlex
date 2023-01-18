@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     PlaylistData: '',
+    MovieListData: ''
 }
 
 export const PlaylistAsync = createAsyncThunk(
@@ -25,6 +26,7 @@ const HomeScreenSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(PlaylistAsync.fulfilled, (state, action) => {
             state.PlaylistData = action.payload
+            // state.MovieListData = action.payload.movies
         })
     }
 })
