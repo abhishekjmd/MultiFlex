@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
     root: {
         width: '100%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding:20
     },
     greetContainer: {
         width: '90%',

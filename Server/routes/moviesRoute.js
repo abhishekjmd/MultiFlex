@@ -26,6 +26,7 @@ Router.post('/api/add_movies', async (req, res) => {
         await addMovies.save();
         console.log(addMovies)
         res.status(201).send(addMovies);
+        return;
         // res.send('added data')
     } catch (error) {
         console.log(error);
@@ -75,9 +76,10 @@ async (req, res) => {
 Router.get('/api/movies', async (req, res) => {
     try {
         const getMovies = await Movie.find({});
-        const result = res.json(getMovies);
+        // const result = res.json(getMovies);
         console.log(getMovies);
-        res.send(getMovies)
+        res.send(getMovies);
+        return;
     } catch (error) {
         res.send(error);
         console.log(error)
@@ -93,6 +95,7 @@ Router.get('/api/movies/:name', async (req, res) => {
         // const result = await res.json(getParticularMovies);
         console.log(getParticularMovies);
         res.send(getParticularMovies);
+        return;
     } catch (error) {
         res.status(400).json(error);
         console.log(error)

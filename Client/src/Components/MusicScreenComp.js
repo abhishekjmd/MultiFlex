@@ -26,7 +26,7 @@ const MusicScreenComp = () => {
     const apiCall = async () => {
         try {
             const musicName = route.params.MusicName;
-            const response = await fetch(`http://192.168.0.106:4000/multiflex/api/movies`);
+            const response = await fetch(`http://192.168.0.106:3000/multiflex/api/movies`);
             const result = await response.json();
             console.log('musicname', musicName)
             setResponse(result)

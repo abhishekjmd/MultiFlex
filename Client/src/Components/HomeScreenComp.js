@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, FlatList, Image, Pressable } from 'react-native
 import React, { useEffect, useState, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import GreetingComp from './GreetingComp'
+import TopPlaylist from './HomeScreenComponents/TopPlaylist'
 
 const PlaylistComp = ({ playlistName, image, onPlaylistCompPressed }) => {
     return (
@@ -40,8 +41,8 @@ const HomeScreenComp = () => {
     }, [])
     return (
         <View style={{ flex: 1, backgroundColor: 'black' }}>
-<GreetingComp />
-        <FlatList
+            <GreetingComp />
+            <FlatList
                 data={response}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item, index }) => {
@@ -50,7 +51,7 @@ const HomeScreenComp = () => {
                             onPlaylistCompPressed={() => {
                                 PressedVideoIndex(index)
                                 console.warn(index);
-                                navigation.navigate('Music', { MusicName: item.name,VideoIndex:index }) 
+                                navigation.navigate('Music', { MusicName: item.name, VideoIndex: index })
                             }}
                         />
                     )

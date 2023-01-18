@@ -11,7 +11,8 @@ exports.postTopPlaylist = async (req, res) => {
         })
         postTopPlaylist.save();
         res.send(postTopPlaylist)
-        console.log(postTopPlaylist)
+        console.log(postTopPlaylist);
+        return;
     } catch (error) {
         console.log(error);
         res.send(error);
@@ -23,7 +24,8 @@ exports.pushMovieDataToTopPlaylist = async (req, res) => {
     try {
         const doc = await TopPlaylist.findOneAndUpdate({ _id: req.params.id }, { $push: req.body }, { new: true }).populate('movies');
         res.send(doc);
-        console.log(doc)
+        console.log(doc);
+        return;
     } catch (error) {
         res.send(error);
         console.log(error);
@@ -35,6 +37,7 @@ exports.deleteTopPLaylistMoviesData = async (req, res) => {
         const delData = await TopPlaylist.findOneAndUpdate({ _id: req.params.id }, { $pull: req.body }, { new: true })
         console.log(delData);
         res.send(delData)
+        return;
     } catch (error) {
         res.send(error);
         console.log(error)
@@ -47,7 +50,8 @@ exports.deleteTopPlaylist = async (req, res) => {
         const delPlaylist = await TopPlaylist.findByIdAndDelete(id)
         // delPlaylist.save();
         res.send(delPlaylist)
-        console.log(delPlaylist)
+        console.log(delPlaylist);
+        return;
     } catch (error) {
         res.send(error);
         console.log(error);
@@ -61,6 +65,7 @@ exports.getTopPlaylists = async (req, res) => {
         const getTopPlaylist = await TopPlaylist.find().populate('movies').exec();
         console.log(getTopPlaylist);
         res.send(getTopPlaylist);
+        return;
     } catch (error) {
         console.log(error);
         res.send(error);
