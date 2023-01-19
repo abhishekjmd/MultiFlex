@@ -6,12 +6,12 @@ const Tab = createBottomTabNavigator()
 
 import HomeStackNavigation from './index'
 import LibraryScreen from '../Screens/LibraryScreen'
-import SearchScreen from '../Screens/SearchScreen/SearchScreen'
 import ProfileScreen from '../Screens/ProfileScreen'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import SearchStackNavigation from './searchStackScreen'
 
 
 const TabNavigation = () => {
@@ -24,17 +24,17 @@ const TabNavigation = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         height: 60,
-                        borderRadius:10,
+                        borderRadius: 10,
                         borderTopWidth: 0,
                         position: 'absolute',
-                        padding:5,
+                        padding: 5,
                     },
                     tabBarLabelStyle: {
                         color: 'white',
                         fontSize: 10,
                         justifyContent: 'center',
                         alignItems: 'center',
-                        marginBottom:3
+                        marginBottom: 3
                     },
                 }}
             >
@@ -51,7 +51,7 @@ const TabNavigation = () => {
                                 <Image source={require('../Assets/Capture-removebg-preview.png')} />
                             </View>
                         }),
-        }} />
+                    }} />
                 <Tab.Screen name='Library' component={LibraryScreen}
                     options=
                     {{
@@ -59,15 +59,14 @@ const TabNavigation = () => {
                             <Ionicons name='md-library' size={32} color='#ffffff' />
                         )),
                     }}
-
                 />
-                <Tab.Screen name='Search' component={SearchScreen}
+                <Tab.Screen name='SearchStack' component={SearchStackNavigation}
                     options=
                     {{
                         'tabBarIcon': (() => (
                             <Ionicons name='search' size={32} color='#ffffff' />
                         )),
-                        headerShown:false
+                        headerShown: false
                     }}
 
                 />

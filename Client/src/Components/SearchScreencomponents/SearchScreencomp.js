@@ -4,11 +4,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useDispatch, useSelector } from 'react-redux'
 import { MovieListAsync } from '../../redux/reducers/movieListReducer'
 import MovieListComp from '../HomeScreenComponents/MovieListcomponent/MovieListComp'
+import { useNavigation } from '@react-navigation/native'
 
 const SearchScreencomp = () => {
     const [searchTerm, setSearchTerm] = useState('')
     const dispatch = useDispatch();
-
+    const navigation = useNavigation();
     const searchDatafunction = useCallback(() => {
         dispatch(MovieListAsync());
     }, [dispatch])
@@ -49,8 +50,8 @@ const SearchScreencomp = () => {
                                 SongName={item.name}
                                 Artists={item.singer}
                                 OnVideoPressed={() => {
-                                    navigation.navigate('VideoPlayer', { MusicName: item.name, VideoIndex: index, MovieUrl: item.Preview_url, MovieList: item, playlistIndex: playlistIndex })
-                                    console.warn('Movie Pressed')
+                                    navigation.navigate('SearchVideoPlayer', { MusicName: item.name, VideoIndex: item.index - 1, MovieUrl: item.Preview_url, VideoList: searchData })
+                                    console.log('Index', item.index - 1)
                                 }}
                             />
                         )
@@ -82,8 +83,8 @@ const styles = StyleSheet.create({
         width: '95%',
         height: '100%',
         borderRadius: 10,
-        borderColor:'#36454F',
-        borderWidth:1
+        borderColor: '#36454F',
+        borderWidth: 1
     },
     textInput: {
         fontSize: 20,

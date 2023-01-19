@@ -60,14 +60,10 @@ const VideoPlayerComp = () => {
       </View>
       <View>
         <View style={styles.iconContainer}>
-          <TouchableOpacity
-            onPress={handleBackwardFunction}
-          >
+          <TouchableOpacity onPress={handleBackwardFunction}>
             <Ionicons name='play-skip-back' size={30} color='white' />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={togglePlay}
-          >
+          <TouchableOpacity onPress={togglePlay}>
             {paused
               ?
               <Ionicons name='play' size={60} color='white' />
@@ -75,9 +71,7 @@ const VideoPlayerComp = () => {
               <Ionicons name='pause' size={60} color='white' />
             }
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={handleForwardFunction}
-          >
+          <TouchableOpacity onPress={handleForwardFunction}>
             <Ionicons name='play-skip-forward' size={30} color='white' />
           </TouchableOpacity>
         </View>

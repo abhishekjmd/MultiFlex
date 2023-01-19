@@ -6,6 +6,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto'
 import MovieListScreen from '../Screens/HomeScreen/MovieListScreen'
 import HomeScreen from '../Screens/HomeScreen/HomeScreen'
 import VideoPlayerScreen from '../Screens/VideoPlayerScreen/VideoPlayerScreen'
+import SearchScreenVideoPlayer from '../Screens/SearchScreen/SearchScreenVideoPlayer'
+import SearchScreen from '../Screens/SearchScreen/SearchScreen'
 
 const stack = createNativeStackNavigator()
 const Navigation = () => {
@@ -39,6 +41,8 @@ const Navigation = () => {
             <stack.Screen name='Music' component={MusicScreen} />
             <stack.Screen name='MovieList' component={MovieListScreen} />
             <stack.Screen name='VideoPlayer' component={VideoPlayerScreen} />
+            <stack.Screen name='searchstackscreen' component={SearchScreen} />
+        
         </stack.Navigator>
 
     )
