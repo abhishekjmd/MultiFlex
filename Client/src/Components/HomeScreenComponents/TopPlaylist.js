@@ -34,7 +34,6 @@ const TopPlaylist = () => {
                                 Images={item.coverImage}
                                 TopplaylistName={item.name}
                                 PlaylistCompPressed={() => { navigation.navigate('MovieList', { movieList: item.movies, playlistIndex: index }) }}
-
                             />
                         )
                     }}

@@ -6,7 +6,7 @@ const Tab = createBottomTabNavigator()
 
 import HomeStackNavigation from './index'
 import LibraryScreen from '../Screens/LibraryScreen'
-import SearchScreen from '../Screens/SearchScreen'
+import SearchScreen from '../Screens/SearchScreen/SearchScreen'
 import ProfileScreen from '../Screens/ProfileScreen'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -67,6 +67,7 @@ const TabNavigation = () => {
                         'tabBarIcon': (() => (
                             <Ionicons name='search' size={32} color='#ffffff' />
                         )),
+                        headerShown:false
                     }}
 
                 />
