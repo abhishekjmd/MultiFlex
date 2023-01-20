@@ -50,7 +50,7 @@ const SearchScreencomp = () => {
                                 SongName={item.name}
                                 Artists={item.singer}
                                 OnVideoPressed={() => {
-                                    navigation.navigate('SearchVideoPlayer', { MusicName: item.name, VideoIndex: item.index - 1, MovieUrl: item.Preview_url, VideoList: searchData })
+                                    navigation.navigate('SearchVideoPlayer', { Artist: item.singer, VideoIndex: item.index - 1, Moviename: item.name, VideoList: searchData, coverImage: item.image })
                                     console.log('Index', item.index - 1)
                                 }}
                             />

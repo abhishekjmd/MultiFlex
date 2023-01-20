@@ -4,11 +4,15 @@ import { useRoute } from '@react-navigation/native'
 import Video from 'react-native-video';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Slider from '@react-native-community/slider';
+import MovieListComp from '../HomeScreenComponents/MovieListcomponent/MovieListComp';
 
 
 const SearchScreenVideoPlayerComp = () => {
   const route = useRoute();
   const videoIndex = route.params.VideoIndex
+  const Moviename = route.params.Moviename
+  const coverImage = route.params.coverImage
+  const Artist = route.params.Artist
   const VideoList = route.params.VideoList
   const [currentVideoIndex, setCurrentVideoIndex] = useState(videoIndex)
   const [currentVideo, setCurrentVideo] = useState('')
@@ -73,6 +77,12 @@ const SearchScreenVideoPlayerComp = () => {
             }}
           />
         </View>
+        <MovieListComp
+          SongName={Moviename}
+          Artists={Artist}
+          Images={coverImage}
+          type='Primary'
+        />
       </View>
       <View style={styles.controlContainer}>
         <Slider
@@ -85,6 +95,7 @@ const SearchScreenVideoPlayerComp = () => {
           minimumTrackTintColor='white'
           maximumTrackTintColor='#fff'
         />
+        <Text style={{marginLeft:5}}> {Math.floor(currentTime / 60).toString()}:{(currentTime % 60).toString().slice(0, 2)} / {Math.floor(duration / 60)}:{(duration % 60).toString().slice(0, 2)} </Text>
       </View>
       <View>
         <View style={styles.iconContainer}>
@@ -127,7 +138,7 @@ const styles = StyleSheet.create({
   },
   videoContainer: {
     width: '100%',
-    height: '85%',
+    height: '80%',
   },
   videoPlayer: {
     width: '100%',
@@ -137,8 +148,10 @@ const styles = StyleSheet.create({
     borderWidth: 1
   },
   controlContainer: {
-    alignItems: 'center',
-    borderWidth: 1,
+    alignItems: 'flex-start',
+    justifyContent:'flex-start',
+    // backgroundColor:'blue'
+    // borderWidth: 1,
   },
   progressContainer: {
     flexDirection: 'row',

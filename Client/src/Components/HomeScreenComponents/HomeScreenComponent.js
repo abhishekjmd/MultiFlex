@@ -5,13 +5,15 @@ import RecommendedPlaylist from './RecommendedPlaylist'
 import MoodyPlaylist from './MoodyPlaylist'
 import { useDispatch, useSelector } from 'react-redux'
 import { PlaylistAsync } from '../../redux/reducers/playlistReducers'
+import GreetingComp from '../GreetingComp'
 
 const HomeScreenComponent = () => {
-    
+
     useEffect(() => {
     }, [])
     return (
         <ScrollView scrollEnabled={true} style={{ flex: 1 }} >
+            <GreetingComp />
             <TopPlaylist />
             <RecommendedPlaylist />
             <MoodyPlaylist />

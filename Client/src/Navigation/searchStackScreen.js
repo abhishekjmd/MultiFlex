@@ -3,7 +3,7 @@ import SearchScreen from '../Screens/SearchScreen/SearchScreen'
 import SearchScreenVideoPlayer from '../Screens/SearchScreen/SearchScreenVideoPlayer'
 const stack = createNativeStackNavigator()
 
-const searchStackNavigation = () => {
+const SearchStackNavigation = () => {
     return (
         <stack.Navigator>
             <stack.Screen name='Search' component={SearchScreen} />
@@ -20,4 +20,4 @@ const searchStackNavigation = () => {
     )
 }
 
-export default searchStackNavigation
+export default SearchStackNavigation

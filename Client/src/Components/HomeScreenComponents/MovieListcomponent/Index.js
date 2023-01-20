@@ -27,7 +27,7 @@ const Index = () => {
                             SongName={item.name}
                             Artists={item.singer}
                             OnVideoPressed={() => {
-                                navigation.navigate('VideoPlayer', { MusicName: item.name, VideoIndex: index, MovieUrl: item.Preview_url, MovieList: item, playlistIndex: playlistIndex })
+                                navigation.navigate('VideoPlayer', { Moviename: item.name, VideoIndex: index, MovieUrl: item.Preview_url, MovieList: item, playlistIndex: playlistIndex, coverImage: item.image, Artist: item.singer })
                                 console.warn('Movie Pressed')
                             }}
                         // OnVideoPressed={() => { console.warn('hii') }}
