@@ -6,7 +6,7 @@ const Tab = createBottomTabNavigator()
 
 import HomeStackNavigation from './index'
 import LibraryScreen from '../Screens/LibraryScreen'
-import ProfileScreen from '../Screens/ProfileScreen'
+import ProfileScreen from '../Screens/ProfileScreen/ProfileScreen'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
@@ -73,6 +73,7 @@ const TabNavigation = () => {
                 <Tab.Screen name='Profile' component={ProfileScreen}
                     options=
                     {{
+                        headerShown: false,
                         'tabBarIcon': (() => (
                             <FontAwesome name='user' size={32} color='#ffffff' />
 

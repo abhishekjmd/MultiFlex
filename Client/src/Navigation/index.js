@@ -40,9 +40,17 @@ const Navigation = () => {
             />
             <stack.Screen name='Music' component={MusicScreen} />
             <stack.Screen name='MovieList' component={MovieListScreen} />
-            <stack.Screen name='VideoPlayer' component={VideoPlayerScreen} />
+            <stack.Screen name='VideoPlayer' component={VideoPlayerScreen}
+                options={{
+                    'headerStyle': {
+                        backgroundColor: 'black',
+                    },
+                    title: null,
+                    headerTintColor: 'white'
+                }}
+            />
             <stack.Screen name='searchstackscreen' component={SearchScreen} />
-        
+
         </stack.Navigator>
 
     )
