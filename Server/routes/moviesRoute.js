@@ -1,16 +1,16 @@
 const express = require('express');
 const Movie = require('../models/moviesSchema');
 const Router = express.Router();
-const cloudinary = require('cloudinary').v2;
-const multer = require('multer');
-const { findOneAndUpdate } = require('../models/moviesSchema');
-cloudinary.config({
-    cloud_name: 'dwhra8mlv',
-    api_key: '848551776249758',
-    api_secret: 'K6KPHwaeYjHH5H0drQutBQJYv6E',
-});
+// const cloudinary = require('cloudinary').v2;
+// const multer = require('multer');
+// const { findOneAndUpdate } = require('../models/moviesSchema');
+// cloudinary.config({
+    // cloud_name: 'dwhra8mlv',
+    // api_key: '848551776249758',
+    // api_secret: 'K6KPHwaeYjHH5H0drQutBQJYv6E',
+// });
 
-const upload = multer({ dest: 'upload/' });
+// const upload = multer({ dest: 'upload/' });
 
 
 
