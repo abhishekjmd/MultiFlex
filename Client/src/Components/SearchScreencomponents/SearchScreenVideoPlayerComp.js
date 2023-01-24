@@ -78,9 +78,9 @@ const SearchScreenVideoPlayerComp = () => {
           />
         </View>
         <MovieListComp
-          SongName={Moviename}
-          Artists={Artist}
-          Images={coverImage}
+          SongName={currentVideo.name}
+          Artists={currentVideo.singer}
+          Images={currentVideo.image}
           type='Primary'
         />
       </View>
@@ -95,7 +95,7 @@ const SearchScreenVideoPlayerComp = () => {
           minimumTrackTintColor='white'
           maximumTrackTintColor='#fff'
         />
-        <Text style={{marginLeft:5}}> {Math.floor(currentTime / 60).toString()}:{(currentTime % 60).toString().slice(0, 2)} / {Math.floor(duration / 60)}:{(duration % 60).toString().slice(0, 2)} </Text>
+        <Text style={{ marginLeft: 5 }}> {Math.floor(currentTime / 60).toString()}:{(currentTime % 60).toString().slice(0, 2)} / {Math.floor(duration / 60)}:{(duration % 60).toString().slice(0, 2)} </Text>
       </View>
       <View>
         <View style={styles.iconContainer}>
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   controlContainer: {
     alignItems: 'flex-start',
-    justifyContent:'flex-start',
+    justifyContent: 'flex-start',
     // backgroundColor:'blue'
     // borderWidth: 1,
   },

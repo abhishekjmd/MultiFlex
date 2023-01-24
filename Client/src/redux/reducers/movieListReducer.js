@@ -8,7 +8,7 @@ export const MovieListAsync = createAsyncThunk(
     'MovieListData',
     async () => {
         try {
-            const res = await fetch('http://192.168.0.106:4000/multiflex/api/movies')
+            const res = await fetch('https://multiflex.netlify.app/multiflex/api/movies')
             const result = await res.json();
             console.log('MuslicListResult', result)
             return result;

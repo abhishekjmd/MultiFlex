@@ -9,9 +9,6 @@ import Slider from '@react-native-community/slider'
 
 const VideoPlayerComp = () => {
   const route = useRoute();
-  const Moviename = route.params.Moviename
-  const coverImage = route.params.coverImage
-  const Artist = route.params.Artist
   const MusicListData = useSelector((state) => state.HomeReducer.PlaylistData);
   const playlistIndex = route.params.playlistIndex;
   const pressedVideoIndex = route.params.VideoIndex
@@ -77,9 +74,9 @@ const VideoPlayerComp = () => {
           />
         </View>
         <MovieListComp
-          SongName={Moviename}
-          Artists={Artist}
-          Images={coverImage}
+          SongName={currentVideo.name}
+          Artists={currentVideo.singer}
+          Images={currentVideo.image}
           type='Primary'
         />
       </View>

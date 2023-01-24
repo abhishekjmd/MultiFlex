@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 const ProfileBottomComp = ({ heading, icon, type }) => {
     return (
         <View style={[styles.bottomRoot, styles[`bottomRoot_${type}`]]}>
@@ -14,12 +14,37 @@ const ProfileBottomComp = ({ heading, icon, type }) => {
 }
 
 const ProfileComp = () => {
+    const [profilePicture, setProfilePicture] = useState('')
+    const options = {
+        title: 'select profile picture',
+        storageOptions: {
+            skipBackup: true,
+            path: 'images'
+        },
+    };
+
+    const handleChangeProfilePicture = async () => {
+        launchImageLibrary(options, (response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else {
+                const source = { uri: response.uri };
+                // setProfilePicture(source);
+                uploadProfilePicture(source, response.fileName);
+            }
+        });
+    }
+
+    // const up 
+
     return (
         <View style={{ flex: 1, backgroundColor: 'black' }}>
             <View style={styles.userProfileContainer}>
-                <View style={styles.imageContainer}>
-                    <Image source={require('../../Assets/abhishek.jpeg')} style={styles.image} />
-                </View>
+                <TouchableOpacity style={styles.imageContainer} onPress={handleChangeProfilePicture}>
+                    <Image source={{ uri: profilePicture }} style={styles.image} />
+                </TouchableOpacity>
                 <View style={styles.textContainer}>
                     <Text style={styles.profileText}> Abhishek Tiwari </Text>
                 </View>

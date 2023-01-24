@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { MovieListAsync } from '../../redux/reducers/movieListReducer'
 import MovieListComp from '../HomeScreenComponents/MovieListcomponent/MovieListComp'
 import { useNavigation } from '@react-navigation/native'
+import SearchBarComp from '../UniversalComps/SearchBarComp'
 
 const SearchScreencomp = () => {
     const [searchTerm, setSearchTerm] = useState('')
@@ -34,12 +35,8 @@ const SearchScreencomp = () => {
 
     return (
         <View style={styles.root}>
-            <View style={styles.MainContainer}>
-                <View style={styles.SearchContainer}>
-                    <TextInput placeholder='Find your favorite videos...' style={styles.textInput} value={searchTerm} onChangeText={handleSearch} placeholderTextColor='#d5ded7' />
-                    <Ionicons name='search' size={30} style={styles.Icon} />
-                </View>
-            </View>
+            
+            <SearchBarComp value={searchTerm} placeholder='Find your favorite videos...' onChangeText={handleSearch}  />
             <View>
                 <FlatList
                     data={filteredData}
