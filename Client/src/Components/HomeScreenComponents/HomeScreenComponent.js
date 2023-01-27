@@ -1,16 +1,11 @@
-import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native'
-import React, { useEffect } from 'react'
+import { ScrollView } from 'react-native'
+import React from 'react'
 import TopPlaylist from './TopPlaylist'
 import RecommendedPlaylist from './RecommendedPlaylist'
 import MoodyPlaylist from './MoodyPlaylist'
-import { useDispatch, useSelector } from 'react-redux'
-import { PlaylistAsync } from '../../redux/reducers/playlistReducers'
-import GreetingComp from '../GreetingComp'
+import GreetingComp from './GreetingComp'
 
 const HomeScreenComponent = () => {
-
-    useEffect(() => {
-    }, [])
     return (
         <ScrollView scrollEnabled={true} style={{ flex: 1 }} >
             <GreetingComp />
