@@ -5,16 +5,13 @@ import { NavigationContainer } from '@react-navigation/native'
 const Tab = createBottomTabNavigator()
 
 import HomeStackNavigation from './index'
-// import LibraryScreen from '../Screens/LibraryScreen'
 import ProfileScreen from '../Screens/ProfileScreen/ProfileScreen'
-
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import SearchStackNavigation from './searchStackScreen'
 import LibraryScreen from '../Screens/LibraryScreen/LibraryScreen'
-
-
+import LibraryScreensNavigation from './LibraryScreensNavigation/Index'
 const TabNavigation = () => {
     return (
         <NavigationContainer>
@@ -53,15 +50,17 @@ const TabNavigation = () => {
                             </View>
                         }),
                     }} />
-                <Tab.Screen name='Library' component={LibraryScreen}
+
+                <Tab.Screen name='Library' component={LibraryScreensNavigation}
                     options=
                     {{
-                        headerShown:false,
+                        headerShown: false,
                         'tabBarIcon': (() => (
                             <Ionicons name='md-library' size={32} color='#ffffff' />
                         )),
                     }}
                 />
+
                 <Tab.Screen name='SearchStack' component={SearchStackNavigation}
                     options=
                     {{

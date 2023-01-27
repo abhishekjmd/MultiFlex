@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-
-const MovieListComp = ({ OnVideoPressed, SongName, Artists, Images, type }) => {
+import Ionicons from 'react-native-vector-icons/Ionicons'
+const MovieListComp = ({ OnVideoPressed, SongName, Artists, Images, type, onAddPressed }) => {
     return (
         <Pressable style={[styles.root, styles[`root_${type}`]]} onPress={OnVideoPressed}>
             <View style={[styles.MainContainer, styles[`MainContainer_${type}`]]}>
@@ -19,6 +19,9 @@ const MovieListComp = ({ OnVideoPressed, SongName, Artists, Images, type }) => {
                         </View>
                     </View>
                 </View>
+                <Pressable style={[styles.IconContainer, styles[`IconContainer_${type}`]]} onPress={onAddPressed}>
+                    <Ionicons name='add-circle' size={35} color='black' style={styles.Icon} />
+                </Pressable>
             </View>
         </Pressable>
     )
@@ -44,9 +47,18 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0,
         // borderColor: '#36454F',
         borderRadius: 15,
-        justifyContent:'center',
-        alignItems:'center',
-        marginBottom:20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    root_Secondary: {
+        height: 80,
+        borderWidth: 1,
+        borderColor: '#36454F',
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '1%'
     },
     MainContainer: {
         flexDirection: 'row',
@@ -54,13 +66,16 @@ const styles = StyleSheet.create({
         margin: 10,
         height: '80%'
     },
-    MainContainer_Primary:{
-        width:'100%',
+    MainContainer_Primary: {
+        width: '100%',
         height: '90%',
         margin: 0,
-        justifyContent:'center',
-        alignItems:'center',
-        // marginBottom:10
+    },
+    MainContainer_Secondary: {
+        width: '95%',
+        height: '90%',
+        margin: 0,
+        alignItems: 'center',
     },
     ImageContainer: {
         width: 100,
@@ -70,10 +85,14 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60
     },
+    ImageContainer_Secondary: {
+        width: 60,
+        height: 60
+    },
     Image: {
         width: '100%',
         height: '100%',
-        borderRadius: 15
+        borderRadius: 10
     },
     MainTextContainer: {
         justifyContent: 'center',
@@ -81,9 +100,14 @@ const styles = StyleSheet.create({
         width: '70%',
         height: 100
     },
-    MainTextContainer_Primary:{
-        width:'80%',
-        height:'80%',
+    MainTextContainer_Primary: {
+        width: '80%',
+        height: '80%',
+    },
+    MainTextContainer_Secondary: {
+        width: '65%',
+        height: '80%',
+        // backgroundColor:'blue'
     },
     FirstText: {
         fontWeight: '600',
@@ -91,7 +115,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 5
     },
-    FirstText_Primary:{
+    FirstText_Primary: {
+        fontSize: 16,
+    },
+    FirstText_Secondary: {
         fontSize: 16,
     },
     SecondContainer: {
@@ -99,8 +126,12 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         width: '80%',
     },
-    SecondContainer_Primary:{
-        width:'80%'
+    SecondContainer_Primary: {
+        width: '80%',
+    },
+    SecondContainer_Secondary: {
+        width: '80%',
+        // backgroundColor:'green'
     },
     LyricsTextContainer: {
         backgroundColor: '#d3dbd5',
@@ -119,4 +150,13 @@ const styles = StyleSheet.create({
     LastText: {
         color: '#d3dbd5',
     },
+    IconContainer_Secondary: {
+        backgroundColor: 'white',
+        marginLeft: '2%',
+        padding: '0.8%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10
+    },
+
 })

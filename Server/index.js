@@ -6,12 +6,13 @@ const bodyParser = require('body-parser');
 const movieRoute = require('./routes/moviesRoute')
 const topPlaylistRoute = require('./routes/topPlaylistRoute')
 const artistRoute = require('./routes/artistRoute')
-
+const libraryPlaylistRoute = require('./routes/LibraryPlaylistRoute')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/multiflex', movieRoute);
 app.use('/playlist', topPlaylistRoute);
 app.use('/artist', artistRoute)
+app.use('/library', libraryPlaylistRoute)
 app.use(express.json());
 app.use(cors());
 app.get('/', (req, res) => res.send('Hello World!'))

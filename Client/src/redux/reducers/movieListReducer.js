@@ -26,6 +26,7 @@ const MovieListSlice = createSlice({
         builder.addCase(MovieListAsync.fulfilled, (state, action) => {
             state.MovieListData = action.payload;
         })
+        
     }
 })
 
