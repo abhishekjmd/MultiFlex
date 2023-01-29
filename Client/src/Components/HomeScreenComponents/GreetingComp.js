@@ -31,9 +31,9 @@ const GreetingComp = () => {
                     : time < 17 ?
                         <Greetfunctioncomp text='Music is the perfect companion for an afternoon pick-me-up.' image={require('../../Assets/afternoon.jpeg')} />
                         : time < 21 ?
-                            <Greetfunctioncomp text='Music is the soundtrack to your dreams.' image={require('../../Assets/afternoon.jpeg')} />
-                            :
-                            <Greetfunctioncomp text='Let the music of the evening soothe your soul' image={require('../../Assets/night.jpeg')} />
+                        <Greetfunctioncomp text='Let the music of the evening soothe your soul' image={require('../../Assets/night.jpeg')} />
+                        :
+                        <Greetfunctioncomp text='Music is the soundtrack to your dreams.' image={require('../../Assets/afternoon.jpeg')} />
             }
         </View>
     )
@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 200
+        height: 200,
+        marginBottom:'10%',
     },
     greetMainContainer: {
         marginTop: 20,

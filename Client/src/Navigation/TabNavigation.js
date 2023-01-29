@@ -4,17 +4,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 const Tab = createBottomTabNavigator()
 
-import HomeStackNavigation from './index'
+import HomeStackNavigation from './HomeScreenNavigation/index'
 import ProfileScreen from '../Screens/ProfileScreen/ProfileScreen'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import SearchStackNavigation from './searchStackScreen'
-import LibraryScreen from '../Screens/LibraryScreen/LibraryScreen'
+import SearchStackNavigation from './SearchScreenNavigation/searchStackScreen'
 import LibraryScreensNavigation from './LibraryScreensNavigation/Index'
 const TabNavigation = () => {
     return (
-        <NavigationContainer>
+        
             <Tab.Navigator
                 screenOptions={{
                     tabBarStyle: {
@@ -61,7 +60,7 @@ const TabNavigation = () => {
                     }}
                 />
 
-                <Tab.Screen name='SearchStack' component={SearchStackNavigation}
+                <Tab.Screen name='Search' component={SearchStackNavigation}
                     options=
                     {{
                         'tabBarIcon': (() => (
@@ -83,7 +82,7 @@ const TabNavigation = () => {
 
                 />
             </Tab.Navigator>
-        </NavigationContainer>
+        
     )
 }
 

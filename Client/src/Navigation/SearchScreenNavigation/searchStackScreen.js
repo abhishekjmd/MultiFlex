@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 const stack = createNativeStackNavigator()
-import SearchScreen from '../Screens/SearchScreen/SearchScreen'
-import SearchScreenVideoPlayer from '../Screens/SearchScreen/SearchScreenVideoPlayer'
+import SearchScreen from '../../Screens/SearchScreen/SearchScreen'
+import SearchScreenVideoPlayer from '../../Screens/SearchScreen/SearchScreenVideoPlayer'
 
 const SearchStackNavigation = () => {
     return (
