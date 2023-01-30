@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 200,
         marginBottom:'10%',
+        // borderWidth:1,
+        // borderColor:'black'
     },
     greetMainContainer: {
         marginTop: 20,
@@ -58,6 +60,8 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         alignItems: 'center',
         justifyContent: 'center',
+           borderWidth:1,
+        borderColor:'white'
 
     },
     TextContainer: {

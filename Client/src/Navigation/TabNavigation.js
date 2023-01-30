@@ -17,17 +17,21 @@ const TabNavigation = () => {
             <Tab.Navigator
                 screenOptions={{
                     tabBarStyle: {
-                        backgroundColor: '#343434',
+                        backgroundColor: 'black',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: 60,
-                        borderRadius: 10,
-                        borderTopWidth: 0,
+                        height: 70,
+                        borderRadius: 12,
                         position: 'absolute',
                         padding: 5,
+                        width:'95%',
+                        marginLeft:'2.5%',
+                        borderColor:'white',
+                        borderWidth:1,
+                        borderTopWidth:1.5,
                     },
                     tabBarLabelStyle: {
-                        color: 'white',
+                        color:'white',
                         fontSize: 10,
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -40,7 +44,7 @@ const TabNavigation = () => {
                     {{
                         headerShown: false,
                         tabBarIcon: (() => (
-                            <Entypo name='home' size={32} color='#ffffff' />
+                            <Entypo name='home' size={32} color='white' />
 
                         )),
                         headerRight: (() => {
@@ -55,7 +59,7 @@ const TabNavigation = () => {
                     {{
                         headerShown: false,
                         'tabBarIcon': (() => (
-                            <Ionicons name='md-library' size={32} color='#ffffff' />
+                            <Ionicons name='md-library' size={32} color='white' />
                         )),
                     }}
                 />
@@ -64,7 +68,7 @@ const TabNavigation = () => {
                     options=
                     {{
                         'tabBarIcon': (() => (
-                            <Ionicons name='search' size={32} color='#ffffff' />
+                            <Ionicons name='search' size={32} color='white' />
                         )),
                         headerShown: false
                     }}
@@ -75,7 +79,7 @@ const TabNavigation = () => {
                     {{
                         headerShown: false,
                         'tabBarIcon': (() => (
-                            <FontAwesome name='user' size={32} color='#ffffff' />
+                            <FontAwesome name='user' size={32} color='white' />
 
                         )),
                     }}
