@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 
-const FormInputComp = ({ placeholder, InputText }) => {
+const FormInputComp = ({ placeholder, InputText, value, onChangeText }) => {
   return (
     <View style={styles.root}>
       <View style={styles.mainContainer}>
@@ -9,7 +9,7 @@ const FormInputComp = ({ placeholder, InputText }) => {
           <Text style={styles.inputText}>{InputText}</Text>
         </View>
         <View style={styles.textInputContainer}>
-          <TextInput placeholder={placeholder} placeholderTextColor='black'  style={{color:'black'}} />
+          <TextInput value={value} onChangeText={onChangeText}  placeholder={placeholder} placeholderTextColor='black'  style={{color:'black'}} />
         </View>
       </View>
     </View>
