@@ -2,12 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 const initialState = {
     RegisterUser: '',
     LogIn: '',
-    VerifyOtp: ''
+    VerifyOtp: '',
+    AllUsers: '',
+    
 }
 
 export const RegisterUserAsync = createAsyncThunk(
     'RegisterUser',
-    async () => {
+    async ({ name, email, password, confirmPassword, phone, deviceID }) => {
         try {
             const res = await fetch('https://multiflex.netlify.app/user/register', {
                 method: 'POST',
@@ -15,6 +17,12 @@ export const RegisterUserAsync = createAsyncThunk(
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    name,
+                    email,
+                    password,
+                    confirmPassword,
+                    phone,
+                    deviceID
 
                 }),
             })
@@ -29,16 +37,14 @@ export const RegisterUserAsync = createAsyncThunk(
 
 export const LogInAsync = createAsyncThunk(
     'LogIn',
-    async () => {
+    async (phone) => {
         try {
-            const res = await fetch('https://multiflex.netlify.app/user/login', {
+            const res = await fetch('https://multiflex.netlify.app/user/signin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-
-                }),
+                body: JSON.stringify({ phone }),
             })
             const result = await res.json()
             console.log(result);
@@ -51,7 +57,7 @@ export const LogInAsync = createAsyncThunk(
 
 export const VerifyOtpAsync = createAsyncThunk(
     'VerifyOtp',
-    async () => {
+    async ({ verificationCode, phone }) => {
         try {
             const res = await fetch('https://multiflex.netlify.app/user/verify-otp', {
                 method: 'POST',
@@ -59,7 +65,8 @@ export const VerifyOtpAsync = createAsyncThunk(
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-
+                    phone,
+                    verificationCode
                 })
             })
             const result = await res.json()
@@ -67,6 +74,19 @@ export const VerifyOtpAsync = createAsyncThunk(
             return result;
         } catch (error) {
             console.log(error)
+        }
+    }
+)
+
+export const AllUsersAsync = createAsyncThunk(
+    'AllUsers',
+    async () => {
+        try {
+            const res = await fetch('https://multiflex.netlify.app/user/allUsers');
+            const result = await res.json();
+            return result
+        } catch (error) {
+            console.log(error);
         }
     }
 )
@@ -83,6 +103,9 @@ const AuthSlice = createSlice({
         })
         builder.addCase(VerifyOtpAsync.fulfilled, (state, action) => {
             state.VerifyOtp = action.payload
+        })
+        builder.addCase(AllUsersAsync.fulfilled, (state, action) => {
+            state.AllUsers = action.payload
         })
     }
 

@@ -2,23 +2,52 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import LottieView from 'lottie-react-native'
 import FormInputComp from '../FormInputComp'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { Formik } from 'formik'
+import * as yup from 'yup'
+import { useDispatch } from 'react-redux'
+import { VerifyOtpAsync } from '../../../redux/reducers/AuthReducers'
 
 const OtpVerificationComp = () => {
+    const route = useRoute()
+    const phone = route.params.phone
     const navigation = useNavigation();
-    const loginhandle =()=>{
+    const dispatch = useDispatch()
+    const loginhandle = (values) => {
+        const verificationCode = values.verificationCode;
+        dispatch(VerifyOtpAsync({verificationCode,phone}))
+        
+        console.log(verificationCode);
         navigation.navigate('Tabs')
     }
+
+    const validationSchema = yup.object().shape({
+        verificationCode: yup.string().matches(/^\d{6}$/, 'Phone number must start with a + symbol followed by country code (1-3 digits) and then phone number ').required('Phone number is required')
+    })
+
+    const initialValues = {
+        verificationCode: ''
+    }
+
     return (
-        <View style={styles.root}>
-            <View style={styles.LottieContainer}>
-                <LottieView source={require('../../../Assets/verification.json')} autoPlay loop />
-            </View>
-            <FormInputComp InputText='Verification code' placeholder='Enter  Verification code ' />
-            <TouchableOpacity style={styles.verificationContainer} onPress={loginhandle} >
-                <Text style={styles.verificationText}> Login </Text>
-            </TouchableOpacity>
-        </View>
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={loginhandle}
+        >
+            {({ handleChange, handleSubmit, values, errors }) => (
+
+                <View style={styles.root}>
+                    <View style={styles.LottieContainer}>
+                        <LottieView source={require('../../../Assets/verification.json')} autoPlay loop />
+                    </View>
+                    <FormInputComp value={values.verificationCode} onChangeText={handleChange('verificationCode')} InputText='Verification code' placeholder='Enter  Verification code ' />
+                    <TouchableOpacity style={styles.verificationContainer} onPress={handleSubmit} >
+                        <Text style={styles.verificationText}> Login </Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+        </Formik>
     )
 }
 
@@ -35,7 +64,7 @@ const styles = StyleSheet.create({
     LottieContainer: {
         width: '100%',
         height: 300,
-        marginBottom:'10%'
+        marginBottom: '10%'
     },
     verificationContainer: {
         borderWidth: 1,

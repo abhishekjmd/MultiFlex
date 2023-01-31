@@ -1,24 +1,50 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useCallback } from 'react'
 import LottieView from 'lottie-react-native'
 import FormInputComp from '../FormInputComp'
 import { useNavigation } from '@react-navigation/native'
+import { Formik } from 'formik';
+import * as yup from 'yup';
+import { useDispatch } from 'react-redux'
+import { LogInAsync } from '../../../redux/reducers/AuthReducers'
 
 const LoginScreenComp = () => {
     const navigation = useNavigation()
-    const verificationhandle = () => {
-        navigation.navigate('Verify')
+    const dispatch = useDispatch();
+    const initialValues = {
+        phone: ''
     }
+
+    const validationSchema = yup.object().shape({
+        phone: yup.string().matches(/^\+\d{1,3}\d{10}$/, 'Phone number must start with a + symbol followed by country code (1-3 digits) and then phone number ').required('Phone number is required')
+    })
+
+    const verificationhandle = useCallback((values) => {
+        const phone = values.phone;
+        dispatch(LogInAsync(phone))
+        navigation.navigate('Verify', { phone })
+        console.log(phone)
+    }, [])
+
     return (
-        <View style={styles.root}>
-            <View style={styles.LottieContainer}>
-                <LottieView source={require('../../../Assets/login.json')} autoPlay loop />
-            </View>
-            <FormInputComp InputText='Mobile Number' placeholder='Mobile Number' />
-            <TouchableOpacity style={styles.signupContainer} onPress={verificationhandle}>
-                <Text style={styles.signupText}> Send Verification Code </Text>
-            </TouchableOpacity>
-        </View>
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={verificationhandle}
+        >
+            {({ handleChange, handleSubmit, values, errors }) => (
+                <View style={styles.root}>
+                    <View style={styles.LottieContainer}>
+                        <LottieView source={require('../../../Assets/login.json')} autoPlay loop />
+                    </View>
+                    <FormInputComp value={values.phone} onChangeText={handleChange('phone')} InputText='Mobile Number' placeholder='Mobile Number' />
+                    {errors.phone && <Text style={{ color: 'black' }}>{errors.phone}</Text>}
+                    <TouchableOpacity style={styles.signupContainer} onPress={handleSubmit}>
+                        <Text style={styles.signupText}> Send Verification Code </Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+        </Formik>
     )
 }
 

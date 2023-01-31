@@ -1,13 +1,19 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useCallback, useEffect } from 'react'
 import LottieView from 'lottie-react-native'
 import FormInputComp from '../FormInputComp'
 import { useNavigation } from '@react-navigation/native'
 import { Formik } from 'formik'
 import * as yup from 'yup'
+import { useDispatch } from 'react-redux'
+import { RegisterUserAsync } from '../../../redux/reducers/AuthReducers'
+import DeviceInfo from 'react-native-device-info'
+
 
 const SignUpScreenComp = () => {
     const navigation = useNavigation()
+    const dispatch = useDispatch()
+
     const loginhandle = () => {
         navigation.navigate('Login')
     }
@@ -25,19 +31,35 @@ const SignUpScreenComp = () => {
         email: yup.string().email('Enter a valid email').required('Email is required'),
         password: yup.string().min(8, "Password must have at least 8 characters").required('Password is required'),
         confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').required('Confirm password is required'),
-        phone: yup.string().matches(/^[0-9]+$/, 'Phone number can only contain numbers').required('Phone number is required')
+        phone: yup.string().matches(/^\+\d{1,3}\d{10}$/, 'Phone number must start with a + symbol followed by country code (1-3 digits) and the phone number ').required('Phone number is required')
     })
+
+    const registerHandle = useCallback((values) => {
+        const registerFunction = async () => {
+            const name = values.name;
+            const email = values.email;
+            const password = values.password;
+            const confirmPassword = values.confirmPassword;
+            const phone = values.phone
+            const deviceID = await DeviceInfo.getUniqueId()
+
+            console.log(deviceID)
+            dispatch(RegisterUserAsync({ name, email, password, confirmPassword, phone, deviceID }));
+            console.log(name, email, password, confirmPassword, phone);
+            navigation.navigate('Login')
+
+        }
+        registerFunction();
+    }, [])
+
 
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values) => {
-                console.log(values)
-            }}
+            onSubmit={registerHandle}
         >
-            {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-
+            {({ handleChange, handleSubmit, values, errors }) => (
 
                 <View style={styles.mainContainer}>
                     <View style={styles.LottieContainer}>
@@ -97,11 +119,9 @@ const styles = StyleSheet.create({
     FormContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#c0d6e4',
         width: '95%',
         height: '58%',
         borderRadius: 15,
-        borderWidth: 1,
     },
     signupContainer: {
         borderWidth: 1,
