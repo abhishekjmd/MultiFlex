@@ -59,14 +59,14 @@ export const LibraryPlaylistComp = ({ PlaylistName, OnPlaylistPressed, imageOne,
     )
 }
 
-export const LibraryPlaylistModalComponent = ({ onPress }) => {
-    const [value, setValue] = useState('')
+export const LibraryPlaylistModalComponent = ({ onPress, value, onChangeText, onSubmitEditing }) => {
+    // const [value, setValue] = useState('')
     const dispatch = useDispatch();
-    const handleSubmit = () => {
-        dispatch(PostLibraryAsync(value));
-        dispatch(GetLibraryAsync())
-        console.warn(value);
-    }
+    // const handleSubmit = ({ isClosed }) => {
+        // dispatch(PostLibraryAsync(value));
+        // dispatch(GetLibraryAsync())
+        // console.warn(value);
+    // }
 
     return (
         <KeyboardAvoidingView style={styles.libraryModalRoot}>
@@ -83,7 +83,7 @@ export const LibraryPlaylistModalComponent = ({ onPress }) => {
                     </View>
                 </View>
                 <View style={styles.libraryModalTextInputContainer}>
-                    <TextInput style={styles.libraryModalTextInput} value={value} onChangeText={(e) => setValue(e)} onSubmitEditing={handleSubmit} placeholder='craft the ultimate experience...' placeholderTextColor='black' />
+                    <TextInput style={styles.libraryModalTextInput} value={value} onChangeText={onChangeText} onSubmitEditing={onSubmitEditing} placeholder='craft the ultimate experience...' placeholderTextColor='black' />
                 </View>
             </View>
         </KeyboardAvoidingView>
@@ -125,7 +125,7 @@ export const AddMovieToPlaylistComp = ({ onPress, PlaylistId }) => {
             })
             const result = await res.json();
             console.log(result)
-            dispatch(GetLibraryAsync())
+            await dispatch(GetLibraryAsync())
             console.warn('LiraryId', PlaylistId)
             console.warn("movieId", movieId)
 

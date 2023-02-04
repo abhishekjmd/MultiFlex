@@ -17,10 +17,34 @@ const LibraryListComp = () => {
     setModalOpen(!modalopen);
   }
 
+  const addPlaylistHandle = async (movieId) => {
+    // dispatch(UpdateLibraryAsync({ PlaylistId, movieId }))
+    try {
+      const res = await fetch(`https://multiflex.netlify.app/library/updateLibrary/${PlaylistId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+          { movieId: movieId }
+        ),
+      })
+      const result = await res.json();
+      console.log(result)
+      dispatch(GetLibraryAsync())
+      console.warn('LiraryId', PlaylistId)
+      console.warn("movieId", movieId)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   const onRefresh = async () => {
     setRefreshing(true);
-    MovieData;
-    setModalOpen(!modalopen);
+    await dispatch(GetLibraryAsync())
+    setModalOpen(false);
     setRefreshing(false);
 
   };
