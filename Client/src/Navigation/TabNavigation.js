@@ -13,80 +13,80 @@ import SearchStackNavigation from './SearchScreenNavigation/searchStackScreen'
 import LibraryScreensNavigation from './LibraryScreensNavigation/Index'
 const TabNavigation = () => {
     return (
-        
-            <Tab.Navigator
-                screenOptions={{
-                    tabBarStyle: {
-                        backgroundColor: 'black',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: 70,
-                        borderRadius: 12,
-                        position: 'absolute',
-                        padding: 5,
-                        width:'95%',
-                        marginLeft:'2.5%',
-                        borderColor:'white',
-                        borderWidth:1,
-                        borderTopWidth:1.5,
-                    },
-                    tabBarLabelStyle: {
-                        color:'white',
-                        fontSize: 10,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        marginBottom: 3
-                    },
+
+        <Tab.Navigator
+            screenOptions={{
+                tabBarStyle: {
+                    backgroundColor: 'black',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: 70,
+                    borderRadius: 12,
+                    position: 'absolute',
+                    padding: 5,
+                    width: '95%',
+                    marginLeft: '2.5%',
+                    borderColor: 'white',
+                    borderWidth: 1,
+                    borderTopWidth: 1.5,
+                },
+                tabBarLabelStyle: {
+                    color: 'white',
+                    fontSize: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: 3
+                },
+            }}
+        >
+            <Tab.Screen name='Home' component={HomeStackNavigation}
+                options=
+                {{
+                    headerShown: false,
+                    tabBarIcon: (() => (
+                        <Entypo name='home' size={32} color='white' />
+
+                    )),
+                    headerRight: (() => {
+                        <View>
+                            <Image source={require('../Assets/Capture-removebg-preview.png')} />
+                        </View>
+                    }),
+                }} />
+
+            <Tab.Screen name='Library' component={LibraryScreensNavigation}
+                options=
+                {{
+                    headerShown: false,
+                    'tabBarIcon': (() => (
+                        <Ionicons name='md-library' size={32} color='white' />
+                    )),
                 }}
-            >
-                <Tab.Screen name='Home' component={HomeStackNavigation}
-                    options=
-                    {{
-                        headerShown: false,
-                        tabBarIcon: (() => (
-                            <Entypo name='home' size={32} color='white' />
+            />
 
-                        )),
-                        headerRight: (() => {
-                            <View>
-                                <Image source={require('../Assets/Capture-removebg-preview.png')} />
-                            </View>
-                        }),
-                    }} />
+            <Tab.Screen name='Search' component={SearchStackNavigation}
+                options=
+                {{
+                    'tabBarIcon': (() => (
+                        <Ionicons name='search' size={32} color='white' />
+                    )),
+                    headerShown: false
+                }}
 
-                <Tab.Screen name='Library' component={LibraryScreensNavigation}
-                    options=
-                    {{
-                        headerShown: false,
-                        'tabBarIcon': (() => (
-                            <Ionicons name='md-library' size={32} color='white' />
-                        )),
-                    }}
-                />
+            />
+            <Tab.Screen name='Profile' component={ProfileScreen}
+                options=
+                {{
+                    headerShown: false,
+                    'tabBarIcon': (() => (
+                        <FontAwesome name='user' size={32} color='white' />
 
-                <Tab.Screen name='Search' component={SearchStackNavigation}
-                    options=
-                    {{
-                        'tabBarIcon': (() => (
-                            <Ionicons name='search' size={32} color='white' />
-                        )),
-                        headerShown: false
-                    }}
+                    )),
+                }}
 
-                />
-                <Tab.Screen name='Profile' component={ProfileScreen}
-                    options=
-                    {{
-                        headerShown: false,
-                        'tabBarIcon': (() => (
-                            <FontAwesome name='user' size={32} color='white' />
+            />
+        </Tab.Navigator>
 
-                        )),
-                    }}
-
-                />
-            </Tab.Navigator>
-        
     )
 }
 

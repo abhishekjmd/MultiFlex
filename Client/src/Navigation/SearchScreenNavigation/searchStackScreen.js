@@ -6,7 +6,7 @@ import SearchScreenVideoPlayer from '../../Screens/SearchScreen/SearchScreenVide
 const SearchStackNavigation = () => {
     return (
         <stack.Navigator>
-            <stack.Screen name='Search' component={SearchScreen} />
+            <stack.Screen name='Searchstack' component={SearchScreen} options={{ headerShown: false }} />
             <stack.Screen name='SearchVideoPlayer' component={SearchScreenVideoPlayer}
                 options={{
                     'headerStyle': {

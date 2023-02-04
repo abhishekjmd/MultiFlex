@@ -13,7 +13,6 @@ const Index = () => {
     const MusicListData = useSelector((state) => state.HomeReducer.PlaylistData);
     const playlistIndex = route.params.playlistIndex;
     useEffect(() => {
-        // console.log("MovieList", MovieList)
         console.log('playlistIndex', playlistIndex)
     }, [])
     return (

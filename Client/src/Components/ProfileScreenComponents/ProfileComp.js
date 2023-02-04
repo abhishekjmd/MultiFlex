@@ -1,92 +1,103 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-const ProfileBottomComp = ({ heading, icon, type }) => {
-    return (
-        <View style={[styles.bottomRoot, styles[`bottomRoot_${type}`]]}>
-            <View style={styles.bottomContainer}>
-                <FontAwesome name={icon} size={25} />
-                <Text style={styles.bottomText}>{heading}</Text>
-            </View>
-        </View>
-    )
-}
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import React from 'react'
 
 const ProfileComp = () => {
-    const [profilePicture, setProfilePicture] = useState('')
-    
     return (
-        <View style={{ flex: 1, backgroundColor: 'black' }}>
-            <View style={styles.userProfileContainer}>
-                <TouchableOpacity style={styles.imageContainer} onPress={handleChangeProfilePicture}>
-                    <Image source={{ uri: profilePicture }} style={styles.image} />
-                </TouchableOpacity>
-                <View style={styles.textContainer}>
-                    <Text style={styles.profileText}> Abhishek Tiwari </Text>
+        <ScrollView scrollEnabled={true} style={styles.root}>
+            <View style={styles.mainContiner}>
+
+                <View style={styles.topImageContainer}>
+                    <Image source={require('../../Assets/resume.jpeg')} style={styles.image} resizeMode='center' />
+                </View>
+                <View style={styles.topTwoImageContainer}>
+                    <Image source={require('../../Assets/email.jpeg')} style={styles.Twoimage} resizeMode='center' />
+                </View>
+                <View style={styles.topTwoImageContainer}>
+                    <Image source={require('../../Assets/mobileno.jpeg')} style={styles.Twoimage} resizeMode='center' />
+                </View>
+                <View style={styles.topTwoImageContainer}>
+                    <Image source={require('../../Assets/linkedin.jpeg')} style={styles.Twoimage} resizeMode='center' />
+                </View>
+                <View style={styles.skillContainer}>
+                    <Image source={require('../../Assets/skills.jpeg')} style={styles.skillImage} resizeMode='center' />
+                </View>
+                <View style={styles.projectContainer}>
+                    <Image source={require('../../Assets/project.jpeg')} style={styles.projectImage} resizeMode='center' />
                 </View>
             </View>
-            <ProfileBottomComp
-                icon='bug'
-                heading='Report a bug'
-                type='Primary'
-            />
-            <ProfileBottomComp
-                icon='users'
-                heading='About Us'
-            />
-            <ProfileBottomComp
-                icon='institution'
-                heading='Terms and Conditions'
-                type='Primary'
-            />
-            <ProfileBottomComp
-                icon='shield'
-                heading='Privacy Policy'
-
-            />
-        </View>
+        </ScrollView>
     )
 }
 
 export default ProfileComp
 
 const styles = StyleSheet.create({
-    userProfileContainer: {
+    root: {
+        flex: 1,
+        backgroundColor: 'blue'
+    },
+    mainContiner: {
+        height: 1200,
         width: '100%',
-        height: 180,
         alignItems: 'center',
-        borderRadius: 15,
-        justifyContent: 'center'
+        backgroundColor: 'white'
+    },
+
+    topImageContainer: {
+        marginTop: '5%',
+        width: '95%',
+        height: '19%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        borderWidth: 1
     },
     image: {
-        width: 90,
-        height: 90,
-        borderRadius: 50,
-        marginBottom: 10
+        width: '100%',
+        height: '100%',
     },
-    profileText: {
-        color: 'white',
-        fontSize: 18,
-    },
-    bottomRoot: {
-        borderWidth: 1,
-        borderColor: '#36454F',
-        width: '99%',
-        height: 60,
+    topTwoImageContainer: {
+        marginTop: '1%',
+        width: '95%',
+        height: '4%',
+        backgroundColor: 'white',
         justifyContent: 'center',
-        borderRadius: 15
+        alignItems: 'center',
+        borderRadius: 5,
+        borderWidth: 1
     },
-    bottomRoot_Primary: {
-        borderWidth: 0,
-
+    Twoimage: {
+        width: '100%',
+        height: '95%'
     },
-    bottomContainer: {
-        flexDirection: 'row',
-        padding: 15,
-        alignItems: 'center'
+    skillContainer: {
+        marginTop: '3%',
+        width: '95%',
+        height: '19%',
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginBottom: '5%',
+        borderWidth: 1
     },
-    bottomText: {
-        fontSize: 16,
-        marginLeft: 15
+    skillImage: {
+        width: '95%',
+        height: '95%'
+    },
+    projectContainer: {
+        marginTop: '3%',
+        width: '95%',
+        height: '19%',
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginBottom: '5%',
+        borderWidth: 1
+    },
+    projectImage: {
+        width: '95%',
+        height: '100%'
     },
 })

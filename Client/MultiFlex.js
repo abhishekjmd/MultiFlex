@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, View, Text } from 'react-native'
 import React, { useCallback, useEffect } from 'react'
 import DeviceInfo from 'react-native-device-info'
 import { useState } from 'react'
@@ -7,43 +7,50 @@ import VerifiedAuthNavigation from './src/Navigation/AuthNavigation.js/VerifiedA
 import LoginAuthNavigation from './src/Navigation/AuthNavigation.js/LoginAuthNavigation'
 
 const MultiFlex = () => {
-    const [deviceID, setDeviceId] = useState('')
-    const [verified, setVerified] = useState(true)
-    const [fetchDeviceID, setFetchDeviceID] = useState('')
-    const [fetchVerified, setFetchVerified] = useState('')
-    const dispatchApi = async () => {
-        try {
-            const deviceID = await DeviceInfo.getUniqueId()
-            setDeviceId(deviceID)
-            console.log('deviceid', deviceID)
-            const res = await fetch('https://multiflex.netlify.app/user/allUsers')
-            const result = await res.json()
-            result.forEach(item => {
-                console.log('apidata', item.deviceID)
-                console.log('verificationstatus', item.isVerified, item.deviceID);
-                setFetchDeviceID(item.deviceID)
-                setFetchVerified(item.isVerified)
-            });
-
-        } catch (error) {
-            console.log(error)
+    const [response, setResponse] = useState([])
+    const [userVerified, setUserVerified] = useState('')
+    const disptachFunction = useCallback(() => {
+        const dispatchApi = async () => {
+            try {
+                const deviceID = await DeviceInfo.getUniqueId()
+                const res = await fetch('https://multiflex.netlify.app/user/allUsers')
+                const result = await res.json()
+                console.log('response', result)
+                const DeviceVerified = await result.some(item => item.deviceID === deviceID)
+                const userVerified = await result.some(item => item.isVerified === true)
+                setResponse(DeviceVerified)
+                setUserVerified(userVerified)
+            } catch (error) {
+                console.log(error)
+            }
         }
-    }
-    useEffect(() => {
         dispatchApi()
-    }, [dispatchApi])
+    }, [])
+
+    useEffect(() => {
+        disptachFunction()
+    }, [])
 
     const RenderFunction = () => {
-        if (deviceID === fetchDeviceID) {
-            if (verified === fetchVerified) {
-                return <VerifiedAuthNavigation />
+        if (response) {
+            if (userVerified) {
+                return (
+                    <VerifiedAuthNavigation />
+                )
             } else {
-                return <LoginAuthNavigation />
+                return (
+                    <LoginAuthNavigation />
+                )
             }
+
         } else {
-            return <AuthNavigation />
+            return (
+                console.log(false),
+                <AuthNavigation />
+            )
         }
     }
+
     return (
         <View style={{ flex: 1 }}>
             <RenderFunction />

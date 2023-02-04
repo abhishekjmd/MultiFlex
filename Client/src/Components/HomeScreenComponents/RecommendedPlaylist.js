@@ -10,10 +10,11 @@ import { PlaylistAsync } from '../../redux/reducers/playlistReducers'
 const RecommendedPlaylist = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const playlistDataFunction =useCallback(()=>{
+  const playlistDataFunction = useCallback(() => {
     dispatch(PlaylistAsync())
-  },[dispatch]) 
-      
+    // setLoading(true)
+  }, [dispatch])
+
   useEffect(() => {
     playlistDataFunction();
   }, [playlistDataFunction])
@@ -58,8 +59,8 @@ const styles = StyleSheet.create({
     height: 280,
     width: '96%',
     marginBottom: 10,
-       borderWidth:2,
-        borderColor:'#36454F'
+    borderWidth: 2,
+    borderColor: '#36454F'
 
   },
   textContainer: {

@@ -12,10 +12,13 @@ const MoodyPlaylist = () => {
     const playlistDataFunction = useCallback(() => {
         dispatch(PlaylistAsync())
     }, [dispatch])
+ 
     useEffect(() => {
         playlistDataFunction();
     }, [playlistDataFunction])
+ 
     const playlistData = useSelector((state) => state.HomeReducer.PlaylistData.slice(8, 12))
+ 
     return (
         <View style={{ alignItems: 'center' }}>
             <View style={styles.root}>

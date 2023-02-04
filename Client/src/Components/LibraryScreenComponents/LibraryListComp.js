@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetLibraryAsync } from '../../redux/reducers/LibraryScreenReducers'
 import MovieListComp from '../HomeScreenComponents/MovieListcomponent/MovieListComp'
 
-
-
 const LibraryListComp = () => {
   const route = useRoute();
   const PlaylistId = route.params.PlaylistId
@@ -22,29 +20,31 @@ const LibraryListComp = () => {
   const onRefresh = async () => {
     setRefreshing(true);
     MovieData;
+    setModalOpen(!modalopen);
     setRefreshing(false);
+
   };
 
   return (
     <View>
       <TopLibraryListComp onPress={modalHandle} />
       {modalopen ? <AddMovieToPlaylistComp onPress={modalHandle} PlaylistId={PlaylistId} /> : null}
-      
-        <FlatList
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-            />
-          }
-          data={MovieData}
-          renderItem={({ item }) => {
-            return (
-              <MovieListComp SongName={item.name} Images={item.image} Artists={item.singer} />
-            )
-          }}
-        />
-      
+
+      <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+        data={MovieData}
+        renderItem={({ item }) => {
+          return (
+            <MovieListComp SongName={item.name} Images={item.image} Artists={item.singer} />
+          )
+        }}
+      />
+
     </View>
   )
 }

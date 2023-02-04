@@ -1,6 +1,5 @@
 import { ScrollView } from 'react-native'
 import React from 'react'
-
 import TopPlaylist from './TopPlaylist'
 import RecommendedPlaylist from './RecommendedPlaylist'
 import MoodyPlaylist from './MoodyPlaylist'

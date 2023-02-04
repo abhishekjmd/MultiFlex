@@ -24,10 +24,6 @@ const LibraryScreenComp = () => {
     dispatch(GetLibraryAsync())
   }, [dispatch])
 
-  // const handleDelete = (id) => {
-  //   dispatch(DeleteLibraryAsync(id))
-  //   dispatch(GetLibraryAsync())
-  // }
   useEffect(() => {
     dispatchFunction()
   }, [dispatchFunction]
@@ -35,12 +31,11 @@ const LibraryScreenComp = () => {
 
   const LibraryPlaylistData = useSelector((state) => state.LibraryReducer.GetLibrary)
 
-
-
   const onRefresh = () => {
     setRefreshing(true);
     dispatchFunction();
     setRefreshing(false);
+    setModalOpen(!modalopen)
   }
   return (
     <View>
