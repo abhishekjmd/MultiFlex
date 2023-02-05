@@ -76,25 +76,25 @@ const LibraryListComp = () => {
 
   };
   return (
-    <View>
+    <View style={{flex:1}}>
       <TopLibraryListComp onPress={modalHandle} />
       {modalopen ? <AddMovieToPlaylistComp onPress={modalHandle} PlaylistId={PlaylistId} value={searchTerm} onChangeText={handleSearch} renderItem={AddMovieToPlaylistCompRenderItems} data={filteredData} /> : null}
-
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
-        data={LibraryPlaylistMovieData[PlaylistIndex].movies}
-        renderItem={({ item }) => {
-          return (
-            <MovieListComp SongName={item.name} Images={item.image} Artists={item.singer} />
-          )
-        }}
-      />
-
+      <ScrollView>
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
+          data={LibraryPlaylistMovieData[PlaylistIndex].movies}
+          renderItem={({ item }) => {
+            return (
+              <MovieListComp SongName={item.name} Images={item.image} Artists={item.singer} />
+            )
+          }}
+        />
+      </ScrollView>
     </View>
   )
 }

@@ -1,7 +1,12 @@
 import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+
 const MovieListComp = ({ OnVideoPressed, SongName, Artists, Images, type, onAddPressed }) => {
+    const [iconPressed, setIconPressed] = useState(false)
+    const iconPressHandle = () => {
+        setIconPressed(!iconPressed)
+    }
     return (
         <Pressable style={[styles.root, styles[`root_${type}`]]} onPress={OnVideoPressed}>
             <View style={[styles.MainContainer, styles[`MainContainer_${type}`]]}>
@@ -19,8 +24,14 @@ const MovieListComp = ({ OnVideoPressed, SongName, Artists, Images, type, onAddP
                         </View>
                     </View>
                 </View>
-                <Pressable style={[styles.IconContainer, styles[`IconContainer_${type}`]]} onPress={onAddPressed}>
-                    <Ionicons name='add-circle' size={35} color='black' style={styles.Icon} />
+                <Pressable style={[styles.IconContainer, styles[`IconContainer_${type}`]]} onPress={() => { onAddPressed(), iconPressHandle() }}>
+                    {
+                        iconPressed ?
+                            <Ionicons name='checkmark-circle' size={35} color='black' style={styles.Icon} />
+                            :
+                            <Ionicons name='add-circle' size={35} color='black' style={styles.Icon} />
+                    }
+
                 </Pressable>
             </View>
         </Pressable>

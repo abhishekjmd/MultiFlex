@@ -1,4 +1,4 @@
-import { FlatList, RefreshControl, ScrollView, StyleSheet, View } from 'react-native'
+import { FlatList, RefreshControl, ScrollView, StyleSheet, View, KeyboardAvoidingView } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
@@ -35,7 +35,7 @@ const LibraryScreenComp = () => {
 
 
   const dispatchFunction = useCallback(() => {
-     dispatch(GetLibraryAsync())
+    dispatch(GetLibraryAsync())
   }, [dispatch])
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const LibraryScreenComp = () => {
       <ScrollView>
         <CreatePlaylistComp onPress={oncreatenewPlaylistPressed} />
         {modalopen ?
-          <LibraryPlaylistModalComponent onPress={modalclose} value={value} onChangeText={(e) => setValue(e)} onSubmitEditing={handleSubmit} />
+          <LibraryPlaylistModalComponent onPress={modalclose} value={value} onChangeText={(e) => setValue(e)} onSubmitEditing={handleSubmit}  />
           :
           null
         }
@@ -67,7 +67,7 @@ const LibraryScreenComp = () => {
               onRefresh={onRefresh}
             />
           }
-          renderItem={({ item,index }) => {
+          renderItem={({ item, index }) => {
             return (
               <LibraryPlaylistComp
                 PlaylistName={item.name}

@@ -37,6 +37,7 @@ const TabNavigation = () => {
                     alignItems: 'center',
                     marginBottom: 3
                 },
+                tabBarHideOnKeyboard:true
             }}
         >
             <Tab.Screen name='Home' component={HomeStackNavigation}

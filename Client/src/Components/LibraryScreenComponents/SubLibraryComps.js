@@ -59,17 +59,10 @@ export const LibraryPlaylistComp = ({ PlaylistName, OnPlaylistPressed, imageOne,
     )
 }
 
-export const LibraryPlaylistModalComponent = ({ onPress, value, onChangeText, onSubmitEditing }) => {
-    // const [value, setValue] = useState('')
-    const dispatch = useDispatch();
-    // const handleSubmit = ({ isClosed }) => {
-    // dispatch(PostLibraryAsync(value));
-    // dispatch(GetLibraryAsync())
-    // console.warn(value);
-    // }
+export const LibraryPlaylistModalComponent = ({ onPress, value, onChangeText, onSubmitEditing,  }) => {
 
     return (
-        <KeyboardAvoidingView style={styles.libraryModalRoot}>
+        <View style={styles.libraryModalRoot}>
             <View style={styles.libraryModalContainer}>
                 <Pressable style={styles.libraryIconContainer} onPress={onPress}>
                     <MaterialIcons name='cancel' color='black' size={40} />
@@ -83,10 +76,10 @@ export const LibraryPlaylistModalComponent = ({ onPress, value, onChangeText, on
                     </View>
                 </View>
                 <View style={styles.libraryModalTextInputContainer}>
-                    <TextInput style={styles.libraryModalTextInput} value={value} onChangeText={onChangeText} onSubmitEditing={onSubmitEditing} placeholder='craft the ultimate experience...' placeholderTextColor='black' />
+                    <TextInput style={styles.libraryModalTextInput} value={value} onChangeText={onChangeText} onSubmitEditing={onSubmitEditing}  placeholder='craft the ultimate experience...' placeholderTextColor='black' />
                 </View>
             </View>
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 
@@ -307,14 +300,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
-        bottom: '5%'
+        // bottom:'9%'
     },
     AddMovieToPlaylistContainer: {
         width: '95%',
         height: '100%',
         backgroundColor: 'black',
         borderRadius: 15,
-        borderWidth: 4,
+        borderWidth: 1,
         borderColor: 'white'
     },
     AddMovieToPlaylistSearchBarComp: {
