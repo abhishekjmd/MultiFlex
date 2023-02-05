@@ -63,9 +63,9 @@ export const LibraryPlaylistModalComponent = ({ onPress, value, onChangeText, on
     // const [value, setValue] = useState('')
     const dispatch = useDispatch();
     // const handleSubmit = ({ isClosed }) => {
-        // dispatch(PostLibraryAsync(value));
-        // dispatch(GetLibraryAsync())
-        // console.warn(value);
+    // dispatch(PostLibraryAsync(value));
+    // dispatch(GetLibraryAsync())
+    // console.warn(value);
     // }
 
     return (
@@ -104,50 +104,8 @@ export const TopLibraryListComp = ({ onPress }) => {
     )
 }
 
-export const AddMovieToPlaylistComp = ({ onPress, PlaylistId }) => {
-    const [searchTerm, setSearchTerm] = useState('')
-    const dispatch = useDispatch();
+export const AddMovieToPlaylistComp = ({ onPress, PlaylistId, value, onChangeText, renderItem, data }) => {
 
-    // const PlaylistId = PlaylistId;
-
-
-    const addPlaylistHandle = async (movieId) => {
-        // dispatch(UpdateLibraryAsync({ PlaylistId, movieId }))
-        try {
-            const res = await fetch(`https://multiflex.netlify.app/library/updateLibrary/${PlaylistId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(
-                    { movieId: movieId }
-                ),
-            })
-            const result = await res.json();
-            console.log(result)
-            await dispatch(GetLibraryAsync())
-            console.warn('LiraryId', PlaylistId)
-            console.warn("movieId", movieId)
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        dispatch(MovieListAsync())
-    }, [])
-    const searchData = useSelector((state) => state.SearchReducer.MovieListData)
-    const [filteredData, setFilteredData] = useState(searchData)
-
-    const handleSearch = (text) => {
-        setSearchTerm(text)
-        const searchTermLowercase = text.toLowerCase();
-        const newData = searchData.filter(item => {
-            return item.name.toLowerCase().includes(searchTermLowercase);
-        });
-        setFilteredData(newData);
-    }
     return (
         <View style={styles.AddMovieToPlaylistRoot}>
             <View style={styles.AddMovieToPlaylistContainer}>
@@ -156,16 +114,12 @@ export const AddMovieToPlaylistComp = ({ onPress, PlaylistId }) => {
                         <MaterialIcons name='cancel' color='white' size={40} />
                     </Pressable>
                     <View style={styles.AddMovieToPlaylistSearchBarComp}>
-                        <SearchBarComp value={searchTerm} onChangeText={handleSearch} placeholder='search videos ...' />
+                        <SearchBarComp value={value} onChangeText={onChangeText} placeholder='search videos ...' />
                     </View>
 
                     <FlatList
-                        data={filteredData}
-                        renderItem={({ item }) => {
-                            return (
-                                <MovieListComp SongName={item.name} Artists={item.singer} Images={item.image} type='Secondary' onAddPressed={() => { addPlaylistHandle(item._id) }} />
-                            )
-                        }}
+                        data={data}
+                        renderItem={renderItem}
                     />
                 </View>
             </View>

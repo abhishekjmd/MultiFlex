@@ -67,7 +67,7 @@ const LibraryScreenComp = () => {
               onRefresh={onRefresh}
             />
           }
-          renderItem={({ item }) => {
+          renderItem={({ item,index }) => {
             return (
               <LibraryPlaylistComp
                 PlaylistName={item.name}
@@ -76,7 +76,7 @@ const LibraryScreenComp = () => {
                 imageThree={item.movies[2] ? item.movies[2].image : null}
                 imageFour={item.movies[3] ? item.movies[3].image : null}
                 onDeletePress={() => { handleDelete(item._id) }}
-                OnPlaylistPressed={() => { navigation.navigate('LibraryList', { PlaylistId: item._id, MovieData: item.movies }) }}
+                OnPlaylistPressed={() => { navigation.navigate('LibraryList', { PlaylistId: item._id, PlaylistIndex: index, }) }}
               />
             )
           }}
