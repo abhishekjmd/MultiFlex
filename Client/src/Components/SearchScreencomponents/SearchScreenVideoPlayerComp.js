@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
 import { useRoute } from '@react-navigation/native'
 import Video from 'react-native-video';
@@ -7,19 +7,35 @@ import Slider from '@react-native-community/slider';
 import MovieListComp from '../HomeScreenComponents/MovieListcomponent/MovieListComp';
 
 
+
 const SearchScreenVideoPlayerComp = () => {
   const route = useRoute();
+  const videoRef = useRef(null);
   const videoIndex = route.params.VideoIndex
-  const Moviename = route.params.Moviename
-  const coverImage = route.params.coverImage
-  const Artist = route.params.Artist
   const VideoList = route.params.VideoList
   const [currentVideoIndex, setCurrentVideoIndex] = useState(videoIndex)
   const [currentVideo, setCurrentVideo] = useState('')
   const [paused, setPaused] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
-  const videoRef = useRef();
+
+
+  const onSliderValueChange = (value) => {
+    setCurrentTime(value);
+  };
+
+  const onSliderSlidingComplete = (value) => {
+    videoRef.current.seek(value);
+  };
+
+
+  const onVideoLoad = (data) => {
+    setDuration(data.duration);
+  };
+
+  const onVideoProgress = (data) => {
+    setCurrentTime(data.currentTime);
+  };
 
   const currentVideoFunction = async () => {
     setCurrentVideo(VideoList[videoIndex])
@@ -42,21 +58,17 @@ const SearchScreenVideoPlayerComp = () => {
 
   const handleBackwardFunction = async () => {
     try {
-      setCurrentVideoIndex((currentVideoIndex - 1) % VideoList.length);
+      await setCurrentVideoIndex((currentVideoIndex - 1) % VideoList.length);
       const forwardVideo = await VideoList[currentVideoIndex];
-      setCurrentVideo(forwardVideo)
+      await setCurrentVideo(forwardVideo)
     } catch (error) {
       console.log(error)
     }
-  }
-  const onSliderValueChange = (value) => {
-    setCurrentTime(value);
   }
 
   useEffect(() => {
     currentVideoFunction()
   }, [])
-
 
   return (
     <View style={styles.root}>
@@ -65,16 +77,11 @@ const SearchScreenVideoPlayerComp = () => {
           <Video
             source={{ uri: currentVideo.Preview_url }}
             style={styles.videoPlayer}
-            repeat={true}
             ref={videoRef}
             paused={paused}
             resizeMode={'cover'}
-            onProgress={(data) => {
-              setCurrentTime(data.currentTime)
-            }}
-            onLoad={(data) => {
-              setDuration(data.duration)
-            }}
+            onLoad={onVideoLoad}
+            onProgress={onVideoProgress}
           />
         </View>
         <MovieListComp
@@ -90,7 +97,11 @@ const SearchScreenVideoPlayerComp = () => {
           minimumValue={0}
           maximumValue={duration}
           value={currentTime}
+          // onValueChange={handleSeek}
           onValueChange={onSliderValueChange}
+          onSlidingComplete={onSliderSlidingComplete}
+          // onValueChange={onSliderValueChange}
+          // onValueChange={handleSliderChange}
           thumbTintColor="white"
           minimumTrackTintColor='white'
           maximumTrackTintColor='#fff'
@@ -176,6 +187,5 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
     alignItems: 'center',
     justifyContent: 'center',
-
   },
 })

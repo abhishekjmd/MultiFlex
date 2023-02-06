@@ -1,7 +1,7 @@
 import { FlatList, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useState, useEffect, useCallback } from 'react'
 import { AddMovieToPlaylistComp, TopLibraryListComp } from './SubLibraryComps'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLibraryAsync } from '../../redux/reducers/LibraryScreenReducers'
 import MovieListComp from '../HomeScreenComponents/MovieListcomponent/MovieListComp'
@@ -14,6 +14,7 @@ const LibraryListComp = () => {
   const [modalopen, setModalOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [response, setResponse] = useState('')
+  const navigation = useNavigation()
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const modalHandle = () => {
@@ -76,7 +77,7 @@ const LibraryListComp = () => {
 
   };
   return (
-    <View style={{flex:1}}>
+    <View style={{ flex: 1 }}>
       <TopLibraryListComp onPress={modalHandle} />
       {modalopen ? <AddMovieToPlaylistComp onPress={modalHandle} PlaylistId={PlaylistId} value={searchTerm} onChangeText={handleSearch} renderItem={AddMovieToPlaylistCompRenderItems} data={filteredData} /> : null}
       <ScrollView>
@@ -88,9 +89,16 @@ const LibraryListComp = () => {
             />
           }
           data={LibraryPlaylistMovieData[PlaylistIndex].movies}
-          renderItem={({ item }) => {
+          renderItem={({ item,index }) => {
             return (
-              <MovieListComp SongName={item.name} Images={item.image} Artists={item.singer} />
+              <MovieListComp
+                SongName={item.name}
+                Images={item.image}
+                Artists={item.singer}
+                OnVideoPressed={() => {
+                  navigation.navigate('SearchVideoPlayer', { Artist: item.singer, VideoIndex: item.index, Moviename: item.name, VideoList: item, coverImage: item.image })
+                  console.log('Index', item.index - 1)
+                }} />
             )
           }}
         />

@@ -59,7 +59,7 @@ export const LibraryPlaylistComp = ({ PlaylistName, OnPlaylistPressed, imageOne,
     )
 }
 
-export const LibraryPlaylistModalComponent = ({ onPress, value, onChangeText, onSubmitEditing,  }) => {
+export const LibraryPlaylistModalComponent = ({ onPress, value, onChangeText, onSubmitEditing, }) => {
 
     return (
         <View style={styles.libraryModalRoot}>
@@ -76,7 +76,7 @@ export const LibraryPlaylistModalComponent = ({ onPress, value, onChangeText, on
                     </View>
                 </View>
                 <View style={styles.libraryModalTextInputContainer}>
-                    <TextInput style={styles.libraryModalTextInput} value={value} onChangeText={onChangeText} onSubmitEditing={onSubmitEditing}  placeholder='craft the ultimate experience...' placeholderTextColor='black' />
+                    <TextInput style={styles.libraryModalTextInput} value={value} onChangeText={onChangeText} onSubmitEditing={onSubmitEditing} placeholder='craft the ultimate experience...' placeholderTextColor='black' />
                 </View>
             </View>
         </View>
