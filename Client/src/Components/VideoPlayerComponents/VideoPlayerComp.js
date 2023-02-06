@@ -18,9 +18,28 @@ const VideoPlayerComp = () => {
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const videoRef = useRef(null);
+
+
+  const onSliderValueChange = (value) => {
+    setCurrentTime(value);
+  };
+
+  const onSliderSlidingComplete = (value) => {
+    videoRef.current.seek(value);
+  };
+
+  const onVideoLoad = (data) => {
+    setDuration(data.duration);
+  };
+
+  const onVideoProgress = (data) => {
+    setCurrentTime(data.currentTime);
+  };
+
   const togglePlay = () => {
     setPaused(!paused)
   }
+
   const currentVdeoFunction = async () => {
     const currentVideo = await MusicListData[playlistIndex].movies[currentVideoIndex]
     setCurrentVideo(currentVideo)
@@ -47,9 +66,7 @@ const VideoPlayerComp = () => {
     }
   }
 
-  const onSliderValueChange = (value) => {
-    setCurrentTime(value);
-  }
+
   useEffect(() => {
     console.log('pressedVideoIndex', pressedVideoIndex)
     currentVdeoFunction()
@@ -65,12 +82,9 @@ const VideoPlayerComp = () => {
             ref={videoRef}
             paused={paused}
             resizeMode={'cover'}
-            onProgress={(data) => {
-              setCurrentTime(data.currentTime)
-            }}
-            onLoad={(data) => {
-              setDuration(data.duration)
-            }}
+            onLoad={onVideoLoad}
+            onProgress={onVideoProgress}
+
           />
         </View>
         <MovieListComp
@@ -87,6 +101,7 @@ const VideoPlayerComp = () => {
           maximumValue={duration}
           value={currentTime}
           onValueChange={onSliderValueChange}
+          onSlidingComplete={onSliderSlidingComplete}
           thumbTintColor="white"
           minimumTrackTintColor='white'
           maximumTrackTintColor='#fff'
