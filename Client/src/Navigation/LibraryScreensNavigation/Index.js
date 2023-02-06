@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import LibraryVideoPlayer from '../../Components/LibraryScreenComponents/LibraryVideoPlayer'
 const stack = createNativeStackNavigator()
 import LibraryListScreen from '../../Screens/LibraryScreen/LibraryListScreen'
 import LibraryScreen from '../../Screens/LibraryScreen/LibraryScreen'
@@ -18,6 +19,7 @@ export default function Index() {
                     headerTintColor: 'white'
                 }}
             />
+            <stack.Screen name='LibraryVideoPlayer' component={LibraryVideoPlayer} />
             </stack.Navigator>
     )
 }

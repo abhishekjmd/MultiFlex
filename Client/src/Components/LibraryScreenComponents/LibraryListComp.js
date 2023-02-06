@@ -96,8 +96,8 @@ const LibraryListComp = () => {
                 Images={item.image}
                 Artists={item.singer}
                 OnVideoPressed={() => {
-                  navigation.navigate('SearchVideoPlayer', { Artist: item.singer, VideoIndex: item.index, Moviename: item.name, VideoList: item, coverImage: item.image })
-                  console.log('Index', item.index - 1)
+                  navigation.navigate('LibraryVideoPlayer', {  VideoIndex: index,LibraryIndex:PlaylistIndex })
+                  console.log('Index', index)
                 }} />
             )
           }}
