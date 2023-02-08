@@ -1,4 +1,5 @@
 package com.DevDrops.MultiFlex;
+import com.DevDrops.MultiFlex.MainApplicationReactNativeHost;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import android.app.Application;
@@ -10,7 +11,8 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
-import com.DevDrops.MultiFlex.newarchitecture.MainApplicationReactNativeHost;
+// import com.DevDrops.MultiFlex.newarchitecture.MainApplicationReactNativeHost;
+import com.DevDrops.MultiFlex.newarchitecture.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 

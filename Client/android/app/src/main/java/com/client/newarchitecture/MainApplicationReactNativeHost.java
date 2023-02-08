@@ -19,7 +19,7 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.client.BuildConfig;
+import com.DevDrops.MultiFlex.BuildConfig;
 import com.client.newarchitecture.components.MainComponentsRegistry;
 import com.client.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class MainApplicationReactNativeHost extends ReactNativeHost {
 
   @Override
   public boolean getUseDeveloperSupport() {
-    return BuildConfig.DEBUG;
+    return com.DevDrops.MultiFlex.BuildConfig.DEBUG;
   }
 
   @Override
