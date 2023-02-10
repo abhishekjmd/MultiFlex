@@ -11,7 +11,7 @@ const VerifiedAuthNavigation = () => {
     const [loading, setLoading] = useState(true)
     setTimeout(() => {
         setLoading(false);
-    }, 8000);
+    }, 4000);
     return (
         <NavigationContainer>
             <stack.Navigator screenOptions={{ 'headerShown': false }}>

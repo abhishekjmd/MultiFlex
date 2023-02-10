@@ -3,12 +3,15 @@ import React, { useRef, useState, useEffect } from 'react'
 import Video from 'react-native-video'
 import { useRoute } from '@react-navigation/native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import MovieListComp from '../HomeScreenComponents/MovieListcomponent/MovieListComp'
 import Slider from '@react-native-community/slider'
+import { GetLibraryAsync } from '../../redux/reducers/LibraryScreenReducers'
+import { useCallback } from 'react'
 
 const LibraryVideoPlayer = () => {
   const route = useRoute();
+  const dispatch = useDispatch;
   const LibraryPlaylistMovieData = useSelector((state) => state.LibraryReducer.GetLibrary)
   const pressedVideoIndex = route.params.VideoIndex
   const LibraryIndex = route.params.LibraryIndex
@@ -65,6 +68,10 @@ const LibraryVideoPlayer = () => {
       console.log(error)
     }
   }
+
+  const dispatchFunction = useCallback(()=>{
+     dispatch(GetLibraryAsync())
+  },[dispatch])
 
   useEffect(() => {
     console.log('pressedVideoIndex', pressedVideoIndex)
