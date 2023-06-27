@@ -18,7 +18,17 @@ const SearchScreenVideoPlayerComp = () => {
   const [paused, setPaused] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [loading, setLoading] = useState(false)
 
+
+  const onVideoLoadStart = () => {
+    setLoading(true);
+  };
+
+  const onVideoLoad = (data) => {
+    setLoading(false);
+    setDuration(data.duration);
+  };
 
   const onSliderValueChange = (value) => {
     setCurrentTime(value);
@@ -29,17 +39,27 @@ const SearchScreenVideoPlayerComp = () => {
   };
 
 
-  const onVideoLoad = (data) => {
-    setDuration(data.duration);
-  };
+
 
   const onVideoProgress = (data) => {
-    setCurrentTime(data.currentTime);
+  
+    const { currentTime, playableDuration } = data;
+    const diff = playableDuration - currentTime;
+    if (diff < 0.5) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+
+    setCurrentTime(currentTime);
+
   };
 
   const currentVideoFunction = async () => {
+
     setCurrentVideo(VideoList[videoIndex])
     console.log('videoList', VideoList[videoIndex])
+
   }
 
   const togglePlay = () => {
@@ -72,6 +92,15 @@ const SearchScreenVideoPlayerComp = () => {
 
   return (
     <View style={styles.root}>
+      {
+        loading
+          ?
+          <View style={styles.ActivityIndicatorContainer}>
+            <ActivityIndicator size='large' color="#00acee" />
+          </View>
+          :
+          null
+      }
       <View style={styles.main}>
         <View style={styles.videoContainer}>
           <Video
@@ -80,16 +109,19 @@ const SearchScreenVideoPlayerComp = () => {
             ref={videoRef}
             paused={paused}
             resizeMode={'cover'}
+            onLoadStart={onVideoLoadStart}
             onLoad={onVideoLoad}
             onProgress={onVideoProgress}
           />
         </View>
+        <View style={styles.MovieListStyle}>    
         <MovieListComp
           SongName={currentVideo.name}
           Artists={currentVideo.singer}
           Images={currentVideo.image}
           type='Primary'
         />
+        </View>
       </View>
       <View style={styles.controlContainer}>
         <Slider
@@ -187,5 +219,14 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  ActivityIndicatorContainer:{
+    position:'absolute',
+    zIndex:1,
+    top:'34%'
+  },
+  MovieListStyle: {
+    width: '100%',
+    alignItems: 'center'
   },
 })

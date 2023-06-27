@@ -1,24 +1,31 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity,Alert } from 'react-native'
+import React, { useState } from 'react'
 import LottieView from 'lottie-react-native'
 import FormInputComp from '../FormInputComp'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Formik } from 'formik'
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
-import { VerifyOtpAsync } from '../../../redux/reducers/AuthReducers'
-
+import auth from '@react-native-firebase/auth'
 const OtpVerificationComp = () => {
     const route = useRoute()
-    const phone = route.params.phone
+    const confirmResult = route.params?.confirmResult;
     const navigation = useNavigation();
     const dispatch = useDispatch()
-    const loginhandle = (values) => {
-        const verificationCode = values.verificationCode;
-        dispatch(VerifyOtpAsync({verificationCode,phone}))
-        
-        console.log(verificationCode);
-        navigation.navigate('Tabs')
+    const loginhandle = async (values) => {
+        try {
+            const verificationCode = values.verificationCode;
+            const credentials = auth.PhoneAuthProvider.credential(
+                confirmResult.verificationId,
+                verificationCode
+            )
+            await auth().signInWithCredential(credentials);
+            Alert.alert('Success', 'Phone authentication successful!');
+            navigation.navigate('Tabs')
+        } catch (error) {
+            console.log('error', error.message)
+        }
+
     }
 
     const validationSchema = yup.object().shape({

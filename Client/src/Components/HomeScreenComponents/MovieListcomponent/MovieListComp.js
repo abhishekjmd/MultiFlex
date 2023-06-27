@@ -44,23 +44,20 @@ const styles = StyleSheet.create({
     root: {
         width: '100%',
         height: 140,
-        // backgroundColor:'green',
         marginBottom: 10,
         borderBottomColor: '#36454F',
         borderBottomWidth: 1
-        // borderEndWidth:2,
-        // borderEndColor:'blue'
     },
     root_Primary: {
-        height: 50,
+        width: '90%',
+        height: 70,
         borderWidth: 0,
-        // borderBottomColor: '#36454F',
         borderBottomWidth: 0,
-        // borderColor: '#36454F',
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 20,
+        bottom: '15%',
+
     },
     root_Secondary: {
         height: 80,
@@ -79,8 +76,8 @@ const styles = StyleSheet.create({
     },
     MainContainer_Primary: {
         width: '100%',
-        height: '90%',
-        margin: 0,
+        height: '100%',
+        margin: 0
     },
     MainContainer_Secondary: {
         width: '95%',
@@ -113,12 +110,11 @@ const styles = StyleSheet.create({
     },
     MainTextContainer_Primary: {
         width: '80%',
-        height: '80%',
+        height: '100%',
     },
     MainTextContainer_Secondary: {
         width: '65%',
         height: '80%',
-        // backgroundColor:'blue'
     },
     FirstText: {
         fontWeight: '600',
@@ -142,7 +138,6 @@ const styles = StyleSheet.create({
     },
     SecondContainer_Secondary: {
         width: '80%',
-        // backgroundColor:'green'
     },
     LyricsTextContainer: {
         backgroundColor: '#d3dbd5',

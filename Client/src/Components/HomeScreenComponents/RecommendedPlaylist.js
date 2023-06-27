@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, Pressable, Image } from 'react-native'
+import { StyleSheet, Text, View, FlatList, Pressable, Image, RefreshControl } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,14 +10,21 @@ import { PlaylistAsync } from '../../redux/reducers/playlistReducers'
 const RecommendedPlaylist = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const playlistDataFunction = useCallback(() => {
-    dispatch(PlaylistAsync())
-    // setLoading(true)
-  }, [dispatch])
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const playlistDataFunction = async () => {
+    try {
+      setIsRefreshing(true);
+      await dispatch(PlaylistAsync())
+      setIsRefreshing(false);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     playlistDataFunction();
-  }, [playlistDataFunction])
+  }, [])
+
   const playlistData = useSelector((state) => state.HomeReducer.PlaylistData.slice(4, 8))
   return (
     <View style={styles.main}>
@@ -34,9 +41,12 @@ const RecommendedPlaylist = () => {
                 TopplaylistName={item.name}
                 PlaylistCompPressed={() => { navigation.navigate('MovieList', { movieList: item.movies, playlistIndex: index + 4 }) }}
               />
-
             )
+
           }}
+          refreshControl={
+            <RefreshControl refreshing={isRefreshing} onRefresh={playlistDataFunction} />
+          }
           showsHorizontalScrollIndicator={false}
         />
       </View>

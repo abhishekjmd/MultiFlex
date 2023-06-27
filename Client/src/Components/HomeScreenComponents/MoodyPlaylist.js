@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, Pressable, Image } from 'react-native'
+import { StyleSheet, Text, View, FlatList, Pressable, Image, ActivityIndicator } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PlaylistComp from './PlaylistComp'
@@ -7,18 +7,26 @@ import { useNavigation } from '@react-navigation/native'
 
 
 const MoodyPlaylist = () => {
+    const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
     dispatch = useDispatch();
-    const playlistDataFunction = useCallback(() => {
-        dispatch(PlaylistAsync())
-    }, [dispatch])
- 
+    const playlistDataFunction = async () => {
+        try {
+            setLoading(true);
+            await dispatch(PlaylistAsync());
+            setLoading(false)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     useEffect(() => {
         playlistDataFunction();
-    }, [playlistDataFunction])
- 
+    }, [])
+
     const playlistData = useSelector((state) => state.HomeReducer.PlaylistData.slice(8, 12))
- 
+
     return (
         <View style={{ alignItems: 'center' }}>
             <View style={styles.root}>
@@ -54,8 +62,8 @@ const styles = StyleSheet.create({
         height: 280,
         width: '96%',
         marginBottom: 10,
-        borderWidth:2,
-        borderColor:'#36454F'
+        borderWidth: 2,
+        borderColor: '#36454F'
     },
     text: {
         fontWeight: '500',

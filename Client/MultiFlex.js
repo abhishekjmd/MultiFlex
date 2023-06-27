@@ -1,10 +1,9 @@
-import { FlatList, StyleSheet, View, Text } from 'react-native'
-import React, { useCallback, useEffect } from 'react'
+import {  StyleSheet, View } from 'react-native'
+import React, { useCallback, useEffect,useState } from 'react'
 import DeviceInfo from 'react-native-device-info'
-import { useState } from 'react'
 import AuthNavigation from './src/Navigation/AuthNavigation.js/AuthNavigation'
 import VerifiedAuthNavigation from './src/Navigation/AuthNavigation.js/VerifiedAuthNavigation'
-import LoginAuthNavigation from './src/Navigation/AuthNavigation.js/LoginAuthNavigation'
+// import LoginAuthNavigation from './src/Navigation/AuthNavigation.js/LoginAuthNavigation'
 
 const MultiFlex = () => {
     const [response, setResponse] = useState([])
@@ -37,12 +36,7 @@ const MultiFlex = () => {
                 return (
                     <VerifiedAuthNavigation />
                 )
-            } else {
-                return (
-                    <LoginAuthNavigation />
-                )
             }
-
         } else {
             return (
                 console.log(false),

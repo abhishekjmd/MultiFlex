@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, FlatList } from 'react-native'
+import { StyleSheet, Text, View, TextInput, FlatList,ActivityIndicator } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,6 +9,8 @@ import SearchBarComp from '../UniversalComps/SearchBarComp'
 
 const SearchScreencomp = () => {
     const [searchTerm, setSearchTerm] = useState('')
+    const [loading, setLoading] = useState(false)
+
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const searchDatafunction = useCallback(() => {
@@ -25,18 +27,29 @@ const SearchScreencomp = () => {
     const [filteredData, setFilteredData] = useState(searchData)
 
     const handleSearch = (text) => {
-        setSearchTerm(text)
+        setLoading(true);
+        setSearchTerm(text);
         const searchTermLowercase = text.toLowerCase();
         const newData = searchData.filter(item => {
             return item.name.toLowerCase().includes(searchTermLowercase);
         });
         setFilteredData(newData);
+        setLoading(false);
     }
 
     return (
         <View style={styles.root}>
-            
-            <SearchBarComp value={searchTerm} placeholder='Find your favorite videos...' onChangeText={handleSearch}  />
+            <SearchBarComp value={searchTerm} placeholder='Find your favorite videos...' onChangeText={handleSearch} />
+            {
+                loading
+                    ?
+                    <View style={styles.ActivityIndicatorContainer}>
+                        <ActivityIndicator size='large' color="#00acee" />
+                    </View>
+                    :
+                    null
+            }
+
             <View>
                 <FlatList
                     data={filteredData}
@@ -67,6 +80,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'black'
     },
+    ActivityIndicatorContainer: {
+        height: '100%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     MainContainer: {
         alignItems: 'center',
         width: '100%',
@@ -93,4 +112,5 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: 10
     },
+
 })

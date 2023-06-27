@@ -1,4 +1,4 @@
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Text, ActivityIndicator } from 'react-native'
 import React, { useRef, useState, useEffect } from 'react'
 import Video from 'react-native-video'
 import { useRoute } from '@react-navigation/native'
@@ -15,13 +15,23 @@ const LibraryVideoPlayer = () => {
   const LibraryPlaylistMovieData = useSelector((state) => state.LibraryReducer.GetLibrary)
   const pressedVideoIndex = route.params.VideoIndex
   const LibraryIndex = route.params.LibraryIndex
+  const [loading, setLoading] = useState(false)
   const [paused, setPaused] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(pressedVideoIndex)
   const [currentVideo, setCurrentVideo] = useState('')
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
+
   const videoRef = useRef(null);
 
+  const onVideoLoadStart = () => {
+    setLoading(true);
+  };
+
+  const onVideoLoad = (data) => {
+    setLoading(false);
+    setDuration(data.duration);
+  };
 
   const onSliderValueChange = (value) => {
     setCurrentTime(value);
@@ -31,12 +41,18 @@ const LibraryVideoPlayer = () => {
     videoRef.current.seek(value);
   };
 
-  const onVideoLoad = (data) => {
-    setDuration(data.duration);
-  };
 
   const onVideoProgress = (data) => {
-    setCurrentTime(data.currentTime);
+    const { currentTime, playableDuration } = data;
+    const diff = playableDuration - currentTime;
+    if (diff < 0.5) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+
+    setCurrentTime(currentTime);
+
   };
 
   const togglePlay = () => {
@@ -69,9 +85,9 @@ const LibraryVideoPlayer = () => {
     }
   }
 
-  const dispatchFunction = useCallback(()=>{
-     dispatch(GetLibraryAsync())
-  },[dispatch])
+  const dispatchFunction = useCallback(() => {
+    dispatch(GetLibraryAsync())
+  }, [dispatch])
 
   useEffect(() => {
     console.log('pressedVideoIndex', pressedVideoIndex)
@@ -79,6 +95,15 @@ const LibraryVideoPlayer = () => {
   }, [])
   return (
     <View style={styles.root}>
+      {
+        loading
+          ?
+          <View style={styles.ActivityIndicatorContainer}>
+            <ActivityIndicator size='large' color="#00acee" />
+          </View>
+          :
+          null
+      }
       <View style={styles.main}>
         <View style={styles.videoContainer}>
           <Video
@@ -88,16 +113,19 @@ const LibraryVideoPlayer = () => {
             ref={videoRef}
             paused={paused}
             resizeMode={'cover'}
+            onLoadStart={onVideoLoadStart}
             onLoad={onVideoLoad}
             onProgress={onVideoProgress}
           />
         </View>
-        <MovieListComp
-          SongName={currentVideo.name}
-          Artists={currentVideo.singer}
-          Images={currentVideo.image}
-          type='Primary'
-        />
+        <View style={styles.MovieListStyle}>
+          <MovieListComp
+            SongName={currentVideo.name}
+            Artists={currentVideo.singer}
+            Images={currentVideo.image}
+            type='Primary'
+          />
+        </View>
       </View>
       <View style={styles.controlContainer}>
         <Slider
@@ -143,6 +171,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  ActivityIndicatorContainer: {
+    position: 'absolute',
+    zIndex: 1,
+    top: '34%'
   },
   main: {
     width: '95%',
@@ -192,5 +225,9 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  MovieListStyle: {
+    width: '100%',
+    alignItems: 'center'
   },
 })

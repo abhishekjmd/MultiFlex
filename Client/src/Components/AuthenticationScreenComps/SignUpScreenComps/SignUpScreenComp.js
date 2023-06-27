@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import LottieView from 'lottie-react-native'
 import FormInputComp from '../FormInputComp'
 import { useNavigation } from '@react-navigation/native'
@@ -8,11 +8,24 @@ import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
 import { RegisterUserAsync } from '../../../redux/reducers/AuthReducers'
 import DeviceInfo from 'react-native-device-info'
-
+import auth from '@react-native-firebase/auth'
 
 const SignUpScreenComp = () => {
     const navigation = useNavigation()
     const dispatch = useDispatch()
+    const onAuthStateChanged = user => {
+        if (user) {
+            // Some Android devices can automatically process the verification code (OTP) message, and the user would NOT need to enter the code.
+            // Actually, if he/she tries to enter it, he/she will get an error message because the code was already used in the background.
+            // In this function, make sure you hide the component(s) for entering the code and/or navigate away from this screen.
+            // It is also recommended to display a message to the user informing him/her that he/she has successfully logged in.
+        }
+    };
+
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return subscriber; // unsubscribe on unmount
+    }, []);
 
     const loginhandle = () => {
         navigation.navigate('Login')
@@ -43,11 +56,11 @@ const SignUpScreenComp = () => {
             const phone = values.phone
             const deviceID = await DeviceInfo.getUniqueId()
 
-            console.log(deviceID)
-            dispatch(RegisterUserAsync({ name, email, password, confirmPassword, phone, deviceID }));
-            console.log(name, email, password, confirmPassword, phone);
-            navigation.navigate('Login')
+            dispatch(RegisterUserAsync({ name, email, password, confirmPassword, phone,deviceID }));
+            const confirmation = await auth().signInWithPhoneNumber(phone);
 
+            console.log(name, email, password, confirmPassword, phone);
+            navigation.navigate('Verify', { confirmResult: confirmation })
         }
         registerFunction();
     }, [])

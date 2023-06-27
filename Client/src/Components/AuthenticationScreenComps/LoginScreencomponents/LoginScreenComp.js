@@ -7,6 +7,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux'
 import { LogInAsync } from '../../../redux/reducers/AuthReducers'
+import auth from '@react-native-firebase/auth'
 
 const LoginScreenComp = () => {
     const navigation = useNavigation()
@@ -22,6 +23,8 @@ const LoginScreenComp = () => {
     const verificationhandle = useCallback((values) => {
         const phone = values.phone;
         dispatch(LogInAsync(phone))
+        const confirmation = auth().signInWithPhoneNumber(phone);
+        console.log(confirmation);
         navigation.navigate('Verify', { phone })
         console.log(phone)
     }, [])
@@ -34,6 +37,9 @@ const LoginScreenComp = () => {
         >
             {({ handleChange, handleSubmit, values, errors }) => (
                 <View style={styles.root}>
+                    <View style={styles.verifyTextContainer}>
+                        <Text style={{ color: 'black' }}>Otp verification uses Twilio free service which require phone num to verified first on twilio website so please before testing the application whatsapp the mobile num to developers whatsapp num +919825571401 and verify it  </Text>
+                    </View>
                     <View style={styles.LottieContainer}>
                         <LottieView source={require('../../../Assets/login.json')} autoPlay loop />
                     </View>
@@ -74,5 +80,11 @@ const styles = StyleSheet.create({
     signupText: {
         color: 'black',
         fontSize: 18
+    },
+    verifyTextContainer: {
+        width: '100%',
+        position: 'absolute',
+        zIndex: 1,
+        top: '1%',
     },
 })

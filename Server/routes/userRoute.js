@@ -57,6 +57,9 @@ Router.post('/register',
 
 
 
+{/* 
+
+
 
 Router.post('/signin', async (req, res) => {
     try {
@@ -125,6 +128,8 @@ Router.post('/verify-otp', async (req, res) => {
         res.status(500).send(error);
     }
 })
+
+ */}
 
 Router.get('/allUsers', async (req, res) => {
     try {

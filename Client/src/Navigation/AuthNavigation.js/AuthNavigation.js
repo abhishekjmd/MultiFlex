@@ -15,7 +15,7 @@ const AuthNavigation = () => {
     const [loading, setLoading] = useState(true)
     setTimeout(() => {
         setLoading(false);
-    }, 4000);
+    }, 4500);
     return (
         <NavigationContainer>
             <stack.Navigator screenOptions={{ 'headerShown': false }}>
@@ -27,6 +27,7 @@ const AuthNavigation = () => {
                 }
                 <stack.Screen name='signUp' component={SignUpScreen} />
                 <stack.Screen name='Login' component={LoginScreen} />
+
                 <stack.Screen name='Verify' component={OtpVerificationScreen} />
                 <stack.Screen name='Tabs' component={TabNavigation} />
             </stack.Navigator>

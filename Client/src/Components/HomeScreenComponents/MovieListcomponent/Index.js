@@ -1,20 +1,22 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import MovieListComp from './MovieListComp'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 const Index = () => {
     const route = useRoute();
     const navigation = useNavigation();
     const MovieList = route.params.movieList
-    const dispatch = useDispatch();
+
     const [response, setResponse] = useState(MovieList)
     const MusicListData = useSelector((state) => state.HomeReducer.PlaylistData);
     const playlistIndex = route.params.playlistIndex;
+
     useEffect(() => {
         console.log('playlistIndex', playlistIndex)
     }, [])
+
     return (
         <View style={{ flex: 1 }}>
             <FlatList
@@ -29,10 +31,10 @@ const Index = () => {
                                 navigation.navigate('VideoPlayer', { Moviename: item.name, VideoIndex: index, MovieUrl: item.Preview_url, MovieList: item, playlistIndex: playlistIndex, coverImage: item.image, Artist: item.singer })
                                 console.warn('Movie Pressed')
                             }}
-                        // OnVideoPressed={() => { console.warn('hii') }}
                         />
                     )
                 }}
+                
             />
         </View>
     )
