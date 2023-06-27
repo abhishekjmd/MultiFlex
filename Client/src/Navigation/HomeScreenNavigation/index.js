@@ -4,11 +4,11 @@ import MovieListScreen from '../../Screens/HomeScreen/MovieListScreen'
 import HomeScreen from '../../Screens/HomeScreen/HomeScreen'
 import VideoPlayerScreen from '../../Screens/VideoPlayerScreen/VideoPlayerScreen'
 import SearchScreen from '../../Screens/SearchScreen/SearchScreen'
-import SignUpScreen from '../../Screens/AuthenticationScreen/SignUpScreen'
 
 const stack = createNativeStackNavigator()
 const Navigation = () => {
     return (
+
         <stack.Navigator>
             <stack.Screen name='home' component={HomeScreen}
                 options={{

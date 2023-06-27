@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native'
+import {  View } from 'react-native'
 import React from 'react'
-import OtpVerificationComp from '../../Components/AuthenticationScreenComps/LoginScreencomponents/OtpVerificationComp'
-
+import OtpVerificationComp from '../../Components/AuthenticationScreenComps/OtpVerificationComp'
 const OtpVerificationScreen = () => {
     return (
         <View>
@@ -11,5 +10,3 @@ const OtpVerificationScreen = () => {
 }
 
 export default OtpVerificationScreen
-
-const styles = StyleSheet.create({})

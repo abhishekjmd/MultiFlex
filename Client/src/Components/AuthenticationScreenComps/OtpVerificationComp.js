@@ -1,17 +1,15 @@
 import { StyleSheet, Text, View, TouchableOpacity,Alert } from 'react-native'
 import React, { useState } from 'react'
 import LottieView from 'lottie-react-native'
-import FormInputComp from '../FormInputComp'
+import FormInputComp from './FormInputComp'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Formik } from 'formik'
 import * as yup from 'yup'
-import { useDispatch } from 'react-redux'
 import auth from '@react-native-firebase/auth'
 const OtpVerificationComp = () => {
     const route = useRoute()
     const confirmResult = route.params?.confirmResult;
     const navigation = useNavigation();
-    const dispatch = useDispatch()
     const loginhandle = async (values) => {
         try {
             const verificationCode = values.verificationCode;
@@ -46,7 +44,7 @@ const OtpVerificationComp = () => {
 
                 <View style={styles.root}>
                     <View style={styles.LottieContainer}>
-                        <LottieView source={require('../../../Assets/verification.json')} autoPlay loop />
+                        <LottieView source={require('../../Assets/verification.json')} autoPlay loop />
                     </View>
                     <FormInputComp value={values.verificationCode} onChangeText={handleChange('verificationCode')} InputText='Verification code' placeholder='Enter  Verification code ' />
                     <TouchableOpacity style={styles.verificationContainer} onPress={handleSubmit} >

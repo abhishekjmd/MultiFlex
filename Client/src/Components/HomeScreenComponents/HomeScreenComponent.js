@@ -4,7 +4,6 @@ import TopPlaylist from './TopPlaylist'
 import RecommendedPlaylist from './RecommendedPlaylist'
 import MoodyPlaylist from './MoodyPlaylist'
 import GreetingComp from './GreetingComp'
-import LoginScreenComp from '../AuthenticationScreenComps/LoginScreencomponents/LoginScreenComp'
 
 const HomeScreenComponent = () => {
     return (    

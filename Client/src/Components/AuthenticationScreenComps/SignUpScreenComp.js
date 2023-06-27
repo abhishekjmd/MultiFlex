@@ -1,14 +1,17 @@
+// -----------------------------Imports-----------------------------------
+
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import LottieView from 'lottie-react-native'
-import FormInputComp from '../FormInputComp'
+import FormInputComp from './FormInputComp'
 import { useNavigation } from '@react-navigation/native'
 import { Formik } from 'formik'
 import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
-import { RegisterUserAsync } from '../../../redux/reducers/AuthReducers'
 import DeviceInfo from 'react-native-device-info'
 import auth from '@react-native-firebase/auth'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { RegisterUserAsync } from '../../redux/reducers/AuthReducers'
 
 const SignUpScreenComp = () => {
     const navigation = useNavigation()
@@ -27,10 +30,8 @@ const SignUpScreenComp = () => {
         return subscriber; // unsubscribe on unmount
     }, []);
 
-    const loginhandle = () => {
-        navigation.navigate('Login')
-    }
-
+    
+// -------------- Form validation using formik and yup --------------------
     const initialValues = {
         name: '',
         email: '',
@@ -38,7 +39,6 @@ const SignUpScreenComp = () => {
         confirmPassword: '',
         phone: ''
     }
-
     const validationSchema = yup.object().shape({
         name: yup.string().required('Name is required'),
         email: yup.string().email('Enter a valid email').required('Email is required'),
@@ -47,6 +47,7 @@ const SignUpScreenComp = () => {
         phone: yup.string().matches(/^\+\d{1,3}\d{10}$/, 'Phone number must start with a + symbol followed by country code (1-3 digits) and the phone number ').required('Phone number is required')
     })
 
+// ---------------------- userRegistration function -------------------------------
     const registerHandle = useCallback((values) => {
         const registerFunction = async () => {
             const name = values.name;
@@ -55,11 +56,10 @@ const SignUpScreenComp = () => {
             const confirmPassword = values.confirmPassword;
             const phone = values.phone
             const deviceID = await DeviceInfo.getUniqueId()
-
             dispatch(RegisterUserAsync({ name, email, password, confirmPassword, phone,deviceID }));
             const confirmation = await auth().signInWithPhoneNumber(phone);
-
             console.log(name, email, password, confirmPassword, phone);
+            await AsyncStorage.setItem('userAuthenticated', 'true');
             navigation.navigate('Verify', { confirmResult: confirmation })
         }
         registerFunction();
@@ -76,7 +76,7 @@ const SignUpScreenComp = () => {
 
                 <View style={styles.mainContainer}>
                     <View style={styles.LottieContainer}>
-                        <LottieView source={require('../../../Assets/television.json')} autoPlay loop />
+                        <LottieView source={require('../../Assets/television.json')} autoPlay loop />
                     </View>
                     <View style={styles.FormContainer}>
                         <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }} style={{ width: '100%' }}>
@@ -99,13 +99,6 @@ const SignUpScreenComp = () => {
                     <TouchableOpacity style={styles.signupContainer} onPress={handleSubmit}>
                         <Text style={styles.signupText}> Register User </Text>
                     </TouchableOpacity>
-                    <View style={styles.alreadyContainer}>
-                        <Text style={{ color: 'black' }}>Already have an account?</Text>
-                        <TouchableOpacity style={styles.loginContainer} onPress={loginhandle}>
-                            <Text style={{ color: 'blue', }}> Login </Text>
-                        </TouchableOpacity>
-                    </View>
-
                 </View>
             )}
         </Formik>
@@ -149,11 +142,5 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 18
     },
-    alreadyContainer: {
-        width: '95%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: '2%'
-    },
+    
 })

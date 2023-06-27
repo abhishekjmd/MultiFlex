@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
-import SignUpScreenComp from '../../Components/AuthenticationScreenComps/SignUpScreenComps/SignUpScreenComp'
+import SignUpScreenComp from '../../Components/AuthenticationScreenComps/SignUpScreenComp'
 
 const SignUpScreen = () => {
   return (
@@ -11,5 +11,3 @@ const SignUpScreen = () => {
 }
 
 export default SignUpScreen
-
-const styles = StyleSheet.create({})

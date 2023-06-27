@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     borderWidth:1
   },
   inputTextContainer: {
-    // backgroundColor: 'green',
     width: '40%',
     height: '80%',
     justifyContent:'center',
