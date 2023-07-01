@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "518415173935",
-    "project_id": "multiflex-team",
-    "storage_bucket": "multiflex-team.appspot.com"
+    "project_number": "316783871196",
+    "project_id": "multiflex-48100",
+    "storage_bucket": "multiflex-48100.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:518415173935:android:8df2a8abd1538fe9fb39da",
+        "mobilesdk_app_id": "1:316783871196:android:9e8908cad9c5385a742019",
         "android_client_info": {
           "package_name": "com.multiflex"
         }
       },
       "oauth_client": [
         {
-          "client_id": "518415173935-i55rmtqjbsmosksduv4f53nftsbc8vqo.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.multiflex",
-            "certificate_hash": "97503d11adf517528e2ea3cb7c2cf38201850fde"
-          }
-        },
-        {
-          "client_id": "518415173935-c1vacu8gtnbbjotglgvregpunl1mthnm.apps.googleusercontent.com",
+          "client_id": "316783871196-1gf4mg1robt4rekbodpiidmv1asfvolg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB6SqbP4f5oMDu49CPLeVWsm8Ix9vY5jgU"
+          "current_key": "AIzaSyDvsZDQdHJgC0CFMKnK0BswEds5Sfrv8rI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "518415173935-c1vacu8gtnbbjotglgvregpunl1mthnm.apps.googleusercontent.com",
+              "client_id": "316783871196-1gf4mg1robt4rekbodpiidmv1asfvolg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
